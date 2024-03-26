@@ -6,8 +6,6 @@ import ResidentProfilePersonalInfo from "./ResidentProfilePersonalInfo";
 import { ChangeEvent, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import ImagePreview from "@/components/ImagePreview";
-import default_male from "../../assets/default_male.jpg";
-import default_female from "../../assets/default_female.jpg";
 import { Input } from "@/components/ui/input";
 import ResidentDeleteModal from "./ResidentDeleteModal";
 import NotFound from "@/components/404";
@@ -25,6 +23,8 @@ const ResidentProfile = () => {
 
   const { data: residentInfo, isLoading } = useGetResidentByIdQuery(profile_id);
   const resident = residentInfo ? residentInfo[0] : null;
+
+  const residentName = `${resident?.firstname} ${resident?.lastname}`;
 
   const employee = useAppSelector((state) => state.credentials.userInfo);
   const { data: employeeInfo } = useGetEmployeeQuery(employee.employee_id);
@@ -96,28 +96,33 @@ const ResidentProfile = () => {
           {/* body */}
 
           <div
-            className={`border ${
+            className={`border relative ${
               editMode ? "border-blue-800 border-[3px]" : "border-gray-200"
             } shadow rounded p-5 mt-5 relative overflow-hidden transition-all delay-200`}
           >
             {/* image */}
             <div className="flex justify-center mt-10">
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col items-center mb-5">
                 <div className="h-[170px] w-[170px] rounded-full overflow-hidden border border-gray-800">
                   {editMode && file ? (
                     <ImagePreview file={fileProp} />
                   ) : (
-                    <img
-                      className="h-full w-full object-cover"
-                      src={
-                        resident?.img_url
-                          ? resident.img_url
-                          : resident?.sex === "male"
-                          ? default_male
-                          : default_female
-                      }
-                      alt={resident?.img_url}
-                    />
+                    <>
+                      {resident.img_url ? (
+                        <img
+                          className="h-full w-full object-cover"
+                          src={resident?.img_url}
+                          alt={resident?.img_url}
+                        />
+                      ) : (
+                        <span>
+                          {residentName
+                            .split(" ")
+                            .map((word) => word.charAt(0).toUpperCase())
+                            .join("")}
+                        </span>
+                      )}
+                    </>
                   )}
                 </div>
                 {editMode ? (

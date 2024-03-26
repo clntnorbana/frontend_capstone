@@ -40,6 +40,7 @@ const CertificateInfo = () => {
   // resident data
   const { data: residentInfo } = useGetResidentByIdQuery(request?.profile_id);
   const resident = residentInfo ? residentInfo[0] : undefined;
+  const residentName = `${resident?.firstname} ${resident?.lastname}`;
 
   // update purpose
   const [updatePupose] = useUpdatePurposeMutation();
@@ -119,11 +120,20 @@ const CertificateInfo = () => {
               className="flex items-center space-x-1 hover:underline hover:text-gray-400 rounded"
             >
               <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
-                <img
-                  className="w-full h-full object-cover"
-                  src={resident?.img_url}
-                  alt={resident?.img_url}
-                />
+                {resident?.img_url ? (
+                  <img
+                    className="w-full h-full object-cover"
+                    src={resident?.img_url}
+                    alt={resident?.img_url}
+                  />
+                ) : (
+                  <span>
+                    {residentName
+                      .split(" ")
+                      .map((word) => word.charAt(0).toUpperCase())
+                      .join("")}
+                  </span>
+                )}
               </div>
 
               <div>
