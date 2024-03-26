@@ -75,7 +75,7 @@ const HomeSearchRequest = ({ isOpen, onClose }: HomeSearchRequestProps) => {
                 <p className="italic">
                   Request date,{" "}
                   <span className="font-bold text-gray-700">
-                    {formatDate(request[0].request_date)}
+                    {formatDate(request[0].request_date || "")}
                   </span>
                 </p>
               </div>
