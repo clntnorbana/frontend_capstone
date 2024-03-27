@@ -40,6 +40,8 @@ import { Download } from "lucide-react";
 import { formatDate } from "@/utils/format.date";
 import { CSVLink } from "react-csv";
 import { useGetAllRecordsQuery } from "@/redux/slices/record.slice";
+import { useGetEmployeeQuery } from "@/redux/slices/employee.slice";
+import { useAppSelector } from "@/redux/hooks";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -85,6 +87,10 @@ export function DataTable<TData, TValue>({
     committed_date: formatDate(committed_date),
     ...rest,
   }));
+
+  const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
+  const { data: employeeData } = useGetEmployeeQuery(employeeInfo.employee_id);
+  const employee = employeeData ? employeeData[0] : undefined;
 
   return (
     <div>
@@ -141,12 +147,14 @@ export function DataTable<TData, TValue>({
           </Button>
 
           {/* delete record button */}
-          <Button
-            variant={"destructive"}
-            onClick={() => setOpenDeleteModal(true)}
-          >
-            Delete all
-          </Button>
+          {employee?.admin_role === "editor" ? (
+            <Button
+              variant={"destructive"}
+              onClick={() => setOpenDeleteModal(true)}
+            >
+              Delete all
+            </Button>
+          ) : null}
 
           {/* delete records modal */}
           <RecordsDeleteAllModal

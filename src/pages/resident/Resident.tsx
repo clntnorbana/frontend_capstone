@@ -11,11 +11,11 @@ const Residents = () => {
     <>
       {data && data.length > 0 ? (
         <>
-          {/* loading screen */}
           <Loader
             loading={isLoading}
-            message="Fetching residents, please wait..."
+            message="Fetching records, please wait..."
           />
+
           <div>
             <h1 className="text-xl mb-5 font-bold text-gray-600">
               Registered Residents
@@ -24,7 +24,7 @@ const Residents = () => {
           </div>
         </>
       ) : (
-        <NotFound message="No certificate requests yet." />
+        <NotFound message="No registered residents yet." />
       )}
     </>
   );

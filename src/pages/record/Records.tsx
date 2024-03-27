@@ -11,18 +11,18 @@ const Records = () => {
     <>
       {data && data.length > 0 ? (
         <>
-          {/* loading screen */}
           <Loader
             loading={isLoading}
             message="Fetching records, please wait..."
           />
+
           <div>
             <h1 className="text-xl mb-5 font-bold text-gray-600">Records</h1>
             <DataTable columns={columns} data={data} />
           </div>
         </>
       ) : (
-        <NotFound message={"No records yet."} />
+        <NotFound message="No records yet." />
       )}
     </>
   );
