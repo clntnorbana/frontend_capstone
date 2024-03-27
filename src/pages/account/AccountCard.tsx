@@ -48,40 +48,38 @@ const AccountCard = ({ account }: AccountCardProps) => {
       />
 
       <div className="bg-gray-50 shadow p-10 rounded-lg w-[300px] flex flex-col justify-center items-center text-gray-700 border-gray-200 hover:bg-gray-100 relative">
+        {employee?.admin_role === "editor" ? (
+          <div className="absolute top-2 right-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only"></span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem
+                  disabled={account.employee_id === employee.employee_id}
+                  className="cursor-pointer"
+                  onClick={() => setOpenUpdateRoleModal(true)}
+                >
+                  Set role to{" "}
+                  {account.admin_role === "editor" ? "normal admin" : "editor"}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  disabled={account.employee_id === employee.employee_id}
+                  className="cursor-pointer"
+                  onClick={() => setOpenDeleteModal(true)}
+                >
+                  Delete
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : null}
         <div className="rounded-full h-[100px] w-[100px] flex justify-center items-center font-medium bg-gray-400 mb-3 overflow-hidden">
-          {employee?.admin_role === "editor" ? (
-            <div className="absolute top-2 right-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0">
-                    <span className="sr-only"></span>
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem
-                    disabled={account.employee_id === employee.employee_id}
-                    className="cursor-pointer"
-                    onClick={() => setOpenUpdateRoleModal(true)}
-                  >
-                    Set role to{" "}
-                    {account.admin_role === "editor"
-                      ? "normal admin"
-                      : "editor"}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    disabled={account.employee_id === employee.employee_id}
-                    className="cursor-pointer"
-                    onClick={() => setOpenDeleteModal(true)}
-                  >
-                    Delete
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          ) : null}
           {account.img_url ? (
             <img
               className="w-full h-full object-cover"
@@ -104,7 +102,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
           {employee?.username === account.username ? (
             <NavLink
               className="capitalize text-lg font-bold text-blue-500 hover:underline"
-              to={`/account/setting/${employee.employee_id}`}
+              to={`/account/setting`}
             >{`${account.firstname} ${account.lastname}`}</NavLink>
           ) : (
             <p className="capitalize text-lg font-bold">{`${account.firstname} ${account.lastname}`}</p>

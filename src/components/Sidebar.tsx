@@ -68,7 +68,7 @@ const Sidebar = ({ children }: SidebarProps) => {
           ) : (
             <NavLink
               className={"flex hover:text-indigo-300"}
-              to={`/account/setting/${employee?.employee_id}`}
+              to={"/account/setting"}
             >
               <div className="bg-gray-400 w-10 h-10 rounded-md flex justify-center items-center font-medium">
                 {employee?.img_url ? (

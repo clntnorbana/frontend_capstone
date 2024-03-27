@@ -17,6 +17,7 @@ import ResidentProfile from "./pages/resident/ResidentProfile";
 import Certificate from "./pages/certificate/Certificate";
 import CertificateInfo from "./pages/certificate/CertificateInfo";
 import Records from "./pages/record/Records";
+import Accountsetting from "./pages/account_setting/AccountSetting";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
             element={<CertificateInfo />}
           />
           <Route path="/records" element={<Records />} />
+          <Route path="/account/setting" element={<Accountsetting />} />
         </Route>
       </Routes>
     </BrowserRouter>

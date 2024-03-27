@@ -42,6 +42,24 @@ export const employeeApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Employee"],
     }),
+    // update employee
+    updateEmployee: builder.mutation({
+      query: ({ data, employee_id }) => ({
+        url: `${URL}/update_employee/${employee_id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Employee"],
+    }),
+    // update password
+    updatePassword: builder.mutation({
+      query: ({ data, employee_id }) => ({
+        url: `${URL}/update_password/${employee_id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Employee"],
+    }),
     // update admin role
     updateAdminRole: builder.mutation({
       query: (employee_id: string) => ({
@@ -58,6 +76,16 @@ export const employeeApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Employee"],
     }),
+    // delete account
+    deleteAccount: builder.mutation({
+      query: ({ data, employee_id }) => ({
+        url: `${URL}/delete_account/${employee_id}`,
+        method: "DELETe",
+        body: data,
+      }),
+
+      invalidatesTags: ["Employee"],
+    }),
   }),
 });
 
@@ -65,8 +93,11 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useCreateAccountMutation,
+  useUpdateEmployeeMutation,
+  useUpdatePasswordMutation,
   useUpdateAdminRoleMutation,
   useDeleteEmployeeMutation,
+  useDeleteAccountMutation,
   useGetEmployeeQuery,
   useGetAllEmployeesQuery,
 } = employeeApiSlice;
