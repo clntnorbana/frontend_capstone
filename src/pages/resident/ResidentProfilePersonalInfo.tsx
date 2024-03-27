@@ -40,7 +40,7 @@ const ResidentProfilePersonalInfo = ({
   const [citizenship, setCitizenship] = useState<string>("");
   const [religion, setReligion] = useState<string>("");
   const [civil_status, setCivilStatus] = useState<
-    "single" | "married" | "widow/er" | "single parent"
+    "single" | "married" | "widow/er" | "single parent" | "separated"
   >("single");
   const [occupation, setOccupation] = useState<string>("");
   const [company, setCompany] = useState<string>("");
