@@ -49,7 +49,7 @@ export const certificateApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["Certificate"],
+      invalidatesTags: ["Certificate", "Record"],
     }),
     // reject request
     rejectRequest: builder.mutation({

@@ -42,7 +42,7 @@ const HomeSearchRequest = ({ isOpen, onClose }: HomeSearchRequestProps) => {
         </div>
 
         {/* request */}
-        {transactionId && transactionId.length > 0 ? (
+        {transactionId && transactionId.length === 12 ? (
           isLoading ? (
             <p>loading...</p>
           ) : request && request.length > 0 ? (

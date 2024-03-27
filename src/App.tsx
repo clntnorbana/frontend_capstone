@@ -16,6 +16,7 @@ import Residents from "./pages/resident/Resident";
 import ResidentProfile from "./pages/resident/ResidentProfile";
 import Certificate from "./pages/certificate/Certificate";
 import CertificateInfo from "./pages/certificate/CertificateInfo";
+import Records from "./pages/record/Records";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
             path="/certificate/request/:transaction_id"
             element={<CertificateInfo />}
           />
+          <Route path="/records" element={<Records />} />
         </Route>
       </Routes>
     </BrowserRouter>
