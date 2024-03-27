@@ -1,9 +1,13 @@
 import Modal from "@/components/Modal";
+import ProfileForm from "@/components/ProfileForm";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useGetRequestByIdQuery } from "@/redux/slices/certificate.slice";
+import { useGetResidentByIdQuery } from "@/redux/slices/resident.slice";
 import { formatDate } from "@/utils/format.date";
-import { Info, Search, X } from "lucide-react";
-import { useState } from "react";
+import { Download, Info, Search, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 
 type HomeSearchRequestProps = {
   isOpen: boolean;
@@ -14,8 +18,19 @@ const HomeSearchRequest = ({ isOpen, onClose }: HomeSearchRequestProps) => {
   const [transactionId, setTransactionId] = useState<string>("");
 
   const { data: request, isLoading } = useGetRequestByIdQuery(
-    transactionId ? transactionId : null
+    transactionId ? transactionId : undefined
   );
+  const profile_id =
+    request && request[0] && request[0].profile_id
+      ? request[0].profile_id
+      : null;
+
+  const { data: resident } = useGetResidentByIdQuery(profile_id);
+
+  const componentRef = useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <Modal isOpen={isOpen}>
@@ -93,13 +108,29 @@ const HomeSearchRequest = ({ isOpen, onClose }: HomeSearchRequestProps) => {
                   <Info />
                   <span>
                     {request[0].status === "approved"
-                      ? "Your request for obtaining a certificate of BARANGAY CLEARANCE has been approved. Download and print the profiling form and proceed to barangay to get the document"
+                      ? "Your request for obtaining a certificate of BARANGAY CLEARANCE has been approved. Download and print the profiling form and proceed to barangay to get the document."
                       : request[0].status === "rejected"
                       ? "If your request is rejected, it may be due to discrepancies or inaccuracies in the information provided. Make a request again and please double-check the details and ensure they match your official records."
                       : "Your request for obtaining a certificate of BARANGAY CLEARANCE is currently pending approval. We appreciate your patience, and we will notify you once the request has been processed."}
                   </span>
                 </p>
               </div>
+
+              {/* print profile form */}
+              {request[0].status === "approved" ? (
+                <>
+                  <Button variant={"outline"} onClick={handlePrint}>
+                    Download Profile Form <Download size={15} />{" "}
+                  </Button>
+                  <div className="hidden">
+                    <ProfileForm
+                      ref={componentRef}
+                      residentData={resident}
+                      requestData={request}
+                    />
+                  </div>
+                </>
+              ) : null}
             </div>
           ) : (
             <p className="text-center mt-5">no result</p>

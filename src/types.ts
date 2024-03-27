@@ -12,7 +12,12 @@ export type TResident = {
   email: string;
   citizenship: string;
   religion: string;
-  civil_status: "single" | "married" | "widow/er";
+  civil_status:
+    | "single"
+    | "married"
+    | "widow/er"
+    | "single parent"
+    | "separated";
   company: string;
   occupation: string;
   number_street: string;

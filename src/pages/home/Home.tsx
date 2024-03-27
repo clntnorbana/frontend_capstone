@@ -2,10 +2,11 @@ import { BadgeInfo, Search } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import HomeNote from "./HomeNotice";
-import logo from "../../assets/logo.png";
+import logo2 from "../../assets/logo2.png";
 import { Button } from "@/components/ui/button";
 import HomeSearchProfile from "./HomeSearchProfile";
 import HomeSearchRequest from "./HomeSearchRequest";
+import background from "../../assets/background.jpg";
 
 const Home = () => {
   const [openNotice, setOpenNotice] = useState<boolean>(false);
@@ -27,7 +28,15 @@ const Home = () => {
           </button>
         </div>
       </header>
-      <div className="md:py-[40px] bg-blue-100 h-screen flex flex-col justify-center items-center">
+      <div
+        className="md:py-[40px] bg-blue-100 h-screen flex flex-col justify-center items-center"
+        style={{
+          background: `linear-gradient(rgba(224, 231, 236, 0.8), rgba(224, 231, 236, 0.8)) ,url(${background})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="container mx-auto flex justify-center items-center">
           <div className="flex justify-center flex-col items-center">
             {openNotice ? (
@@ -36,7 +45,7 @@ const Home = () => {
             <div className="h-[180px] w-[180px]">
               <img
                 className="w-full h-full object-cover"
-                src={logo}
+                src={logo2}
                 alt="logo"
               />
             </div>
@@ -45,13 +54,13 @@ const Home = () => {
               <h1 className="font-bold text-center mb-5 text-2xl uppercase leading-6">
                 Certificate Request <br /> Services System
               </h1>
-              <p className="text-center text-sm">
+              <p className="text-center text-sm font-bold">
                 Barangay Malamig, Mandaluyong City
               </p>
               <div className="mt-5 flex flex-col justify-center space-y-2">
                 <NavLink
                   to={"/forgot_profile"}
-                  className={"underline text-blue-600"}
+                  className={"underline text-blue-900 font-bold"}
                 >
                   forgot profile ID?
                 </NavLink>
@@ -85,7 +94,7 @@ const Home = () => {
               <div className="flex justify-center space-x-1 mt-5">
                 <NavLink
                   className={
-                    "uppercase rounded bg-blue-500 p-2 text-sm text-gray-50 hover:bg-blue-700 transition-all"
+                    "uppercase rounded bg-blue-700 p-2 text-sm text-gray-50 hover:bg-blue-600 transition-all"
                   }
                   to={"/register"}
                 >
@@ -93,7 +102,7 @@ const Home = () => {
                 </NavLink>
                 <NavLink
                   className={
-                    "uppercase rounded bg-blue-500 p-2 text-sm text-gray-50 hover:bg-blue-700 transition-all"
+                    "uppercase rounded bg-blue-700 p-2 text-sm text-gray-50 hover:bg-blue-600 transition-all"
                   }
                   to={"/request"}
                 >
@@ -104,7 +113,10 @@ const Home = () => {
           </div>
         </div>
         <div className="mt-5">
-          <NavLink to={"/login"} className={"text-sm underline text-blue-500"}>
+          <NavLink
+            to={"/login"}
+            className={"text-sm underline text-blue-900 font-bold"}
+          >
             Admin Login
           </NavLink>
         </div>
