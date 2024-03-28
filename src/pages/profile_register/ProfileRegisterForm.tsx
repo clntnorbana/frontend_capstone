@@ -153,7 +153,7 @@ const ProfileRegisterForm = ({
         {/* error */}
         {error !== "" ? (
           <p className="p-2 mb-4 bg-red-100 font-bold text-gray-500 rounded text-center">
-            Something went wrong
+            {error}
           </p>
         ) : null}
         {currentStep === 1 ? (
