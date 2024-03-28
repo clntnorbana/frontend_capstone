@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import HomeSearchProfile from "./HomeSearchProfile";
 import HomeSearchRequest from "./HomeSearchRequest";
 import background from "../../assets/background.jpg";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [openNotice, setOpenNotice] = useState<boolean>(false);
@@ -37,7 +38,22 @@ const Home = () => {
           backgroundPosition: "center",
         }}
       >
-        <div className="container mx-auto flex justify-center items-center">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          exit={{ opacity: 0, y: 25 }}
+          transition={{
+            duration: 0.1,
+            delay: 0.1,
+          }}
+          className="container mx-auto flex justify-center items-center"
+        >
           <div className="flex justify-center flex-col items-center">
             {openNotice ? (
               <HomeNote onClose={() => setOpenNotice(false)} />
@@ -111,7 +127,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
         <div className="mt-5">
           <NavLink
             to={"/login"}

@@ -205,12 +205,25 @@ const RequestCertificateForm = ({
         ) : null}
 
         {currentStep === 4 ? (
-          <div>
+          <motion.div
+            initial={{
+              x: (prevStep ?? 0) > currentStep ? -35 : 35,
+            }}
+            animate={{
+              x: 0,
+            }}
+            exit={{
+              x: (prevStep ?? 0) > currentStep ? -35 : 35,
+            }}
+            transition={{
+              duration: 0.2,
+            }}
+          >
             <RequestCertificateFormSubmit
               info={info}
               handleInputChange={handleInputChange}
             />
-          </div>
+          </motion.div>
         ) : null}
 
         {/* buttons */}

@@ -1,3 +1,6 @@
+import TermsCondition from "@/components/terms&condition";
+import { useState } from "react";
+
 type ProfileRegisterFormSubmitProps = {
   boxChecked: boolean;
   setBoxChecked: (e: {
@@ -11,8 +14,14 @@ const ProfileRegisterFormSubmit = ({
   boxChecked,
   setBoxChecked,
 }: ProfileRegisterFormSubmitProps) => {
+  const [openTermsCondition, setOpenTermsCondition] = useState<boolean>(false);
+
   return (
     <>
+      <TermsCondition
+        onOpen={openTermsCondition}
+        onClose={() => setOpenTermsCondition(false)}
+      />
       <div className="text-center">
         <label>
           <input
@@ -22,6 +31,7 @@ const ProfileRegisterFormSubmit = ({
           />{" "}
           By checking the box, you agreed to our terms & condition
           <button
+            onClick={() => setOpenTermsCondition(true)}
             type="button"
             className="underline text-blue-600 hover:text-blue-800"
           >
