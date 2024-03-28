@@ -27,10 +27,9 @@ export const certificateApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Certificate"],
     }),
     deleteRequest: builder.mutation({
-      query: ({ data, transaction_id }) => ({
+      query: (transaction_id) => ({
         url: `${URL}/delete_request/${transaction_id}`,
         method: "DELETE",
-        body: data,
       }),
       invalidatesTags: ["Certificate"],
     }),

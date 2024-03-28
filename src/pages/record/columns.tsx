@@ -11,12 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertCircle, ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/components/Modal";
 import { TRecord } from "@/types";
 import { formatDate } from "@/utils/format.date";
 import { useDeleteRecordMutation } from "@/redux/slices/record.slice";
 import UnauthorizedModal from "@/components/UnauthorizedModal";
+import Loader from "@/components/Loader";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ActionsCell = ({ row }: { row: Row<TRecord> }) => {
@@ -24,6 +25,7 @@ const ActionsCell = ({ row }: { row: Row<TRecord> }) => {
 
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [alertMsg, setAlertMsg] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
   const [deleteRecord, { isLoading }] = useDeleteRecordMutation();
 
   // delete record
@@ -31,19 +33,31 @@ const ActionsCell = ({ row }: { row: Row<TRecord> }) => {
     const transaction_id = record.transaction_id;
 
     try {
-      await deleteRecord(transaction_id).unwrap();
-      setDeleteModal(false);
+      const res = await deleteRecord(transaction_id).unwrap();
+      setSuccess(res.message);
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setAlertMsg((error as any).data.message || (error as any).message);
     }
   };
 
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => {
+        setSuccess("");
+        setDeleteModal(false);
+      }, 1500);
+    }
+  }, [success]);
+
   return (
     <>
       <Modal isOpen={deleteModal}>
-        {isLoading ? (
-          <p>Deleting record, please wait...</p>
+        {/* loading screen */}
+        <Loader loading={isLoading} message="Deleting record, please wait..." />
+
+        {success ? (
+          <p>{success}</p>
         ) : (
           <>
             <div className="w-[400px]">

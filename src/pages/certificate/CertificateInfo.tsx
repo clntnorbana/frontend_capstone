@@ -1,6 +1,5 @@
 import Loader from "@/components/Loader";
 import {
-  useApproveRequestMutation,
   useGetRequestByIdQuery,
   useUpdatePurposeMutation,
 } from "@/redux/slices/certificate.slice";
@@ -11,10 +10,11 @@ import CertificateInfoImages from "./CertificateInfoImages";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCheck, X } from "lucide-react";
+import { CheckCheck, Trash2, X } from "lucide-react";
 import CertificatePrint from "./CertificatePrint";
-import { useAppSelector } from "@/redux/hooks";
 import CertificateRejectModal from "./CertificateRejectModal";
+import CertificateApproveModal from "./CertificateApproveModal";
+import CertificateDeleteModal from "./CertificateDeleteModal";
 
 const CertificateInfo = () => {
   const { transaction_id } = useParams();
@@ -23,8 +23,8 @@ const CertificateInfo = () => {
   const [newPurpose, setNewPurpose] = useState<string>("");
   const [updatePurposeError, setUpdatePurposeError] = useState<string>("");
   const [openRejectModal, setOpenRejectModal] = useState<boolean>(false);
-
-  const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
+  const [openApproveModal, setOpenApproveModal] = useState<boolean>(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
   // request data
   const { data: requestInfo, isLoading: requestLoading } =
@@ -61,26 +61,24 @@ const CertificateInfo = () => {
     }
   };
 
-  // approve request
-  const [approveRequest, { isLoading: approveLoading }] =
-    useApproveRequestMutation();
-  const handleApprove = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const employee_id = employeeInfo.employee_id;
-    const data = {
-      employee_id,
-    };
-
-    await approveRequest({ data, transaction_id }).unwrap();
-  };
-
   return (
     <>
+      <CertificateApproveModal
+        onOpen={openApproveModal}
+        onClose={() => setOpenApproveModal(false)}
+        transaction_id={transaction_id}
+      />
+
       <CertificateRejectModal
         transaction_id={request?.transaction_id}
         onOpen={openRejectModal}
         onClose={() => setOpenRejectModal(false)}
+      />
+
+      <CertificateDeleteModal
+        onOpen={openDeleteModal}
+        onClose={() => setOpenDeleteModal(false)}
+        transaction_id={transaction_id}
       />
 
       {requestLoading ? (
@@ -154,19 +152,13 @@ const CertificateInfo = () => {
               </p>
             </div>
 
-            {/* approve loading screen */}
-            <Loader
-              loading={approveLoading}
-              message="Approving certificate request, please wait..."
-            />
-
             {/* actions */}
             <div className="inline-flex">
               {request?.status === "pending" ? (
                 <>
                   <button
                     className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l flex items-center space-x-1 text-sm"
-                    onClick={handleApprove}
+                    onClick={() => setOpenApproveModal(true)}
                   >
                     <CheckCheck size={20} />
                     <span>Approve</span>
@@ -180,12 +172,24 @@ const CertificateInfo = () => {
                   </button>
                 </>
               ) : null}
-              {request?.status === "rejected" ? (
+
+              {request?.status === "approved" ||
+              request?.status === "rejected" ? (
+                <button
+                  className="bg-gray-300 hover:bg-gray-400 text-red-500 font-bold py-2 px-4 rounded-r flex items-center space-x-1 text-sm"
+                  onClick={() => setOpenDeleteModal(true)}
+                >
+                  <Trash2 size={20} />
+                  <span>Delete</span>
+                </button>
+              ) : null}
+
+              {/* {request?.status === "rejected" ? (
                 <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r flex items-center space-x-1 text-sm">
                   <X size={20} />
                   <span>Undo</span>
                 </button>
-              ) : null}
+              ) : null} */}
             </div>
           </div>
           <div>
