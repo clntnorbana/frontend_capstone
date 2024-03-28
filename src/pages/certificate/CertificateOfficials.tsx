@@ -6,13 +6,11 @@ interface CertificateOfficialsProps {
 
 const CertificateOfficials = ({ children }: CertificateOfficialsProps) => {
   return (
-    <div className="border max-w-[200px] p-2">
-      <h1 className="font-semibold text-center text-[14px]">
-        Barangay Malamig Officials
-      </h1>
+    <div className="border border-gray-500 max-w-[200px] p-2">
+      <h1 className="text-center text-[14px]">Barangay Malamig Officials</h1>
       <div>{children}</div>
-      <p className="text-[14px] italic text-center mt-10">
-        SERBISYONG MANALO, PANALO!
+      <p className="text-[14px] uppercase italic text-center mt-10">
+        CYNTHIA CALUYA, MAY MALASAKIT!
       </p>
     </div>
   );
@@ -26,7 +24,7 @@ interface OfficialsItemProps {
 export const OfficialsItem = ({ name, position }: OfficialsItemProps) => {
   return (
     <div className="text-center my-3">
-      <h1 className="uppercase text-[12px] font-medium">{name}</h1>
+      <h1 className="capitalize text-[12px] font-medium">{name}</h1>
       <p className="text-[12px] mt-[-5px]">{position}</p>
     </div>
   );
@@ -35,13 +33,25 @@ export const OfficialsItem = ({ name, position }: OfficialsItemProps) => {
 export const Officials = () => {
   return (
     <CertificateOfficials>
-      <OfficialsItem name="Cynthia M. Caluya" position="Barangay Captain" />
-      <OfficialsItem name="Marwin R. Manalo" position="Kagawad" />
-      <OfficialsItem name="Alvin C. Pabilonia" position="Kagawad" />
-      <OfficialsItem name="Princess Lorena A. Callos" position="Kagawad" />
-      <OfficialsItem name="Bobby Mar B. Peregrino" position="Kagawad" />
-      <OfficialsItem name="Andrew Regalado S. Dacumos" position="Kagawad" />
-      <OfficialsItem name="Rogelio G. Molina " position="Kagawad" />
+      <OfficialsItem
+        name="Hon. Cynthia M. Caluya"
+        position="Barangay Captain"
+      />
+      <OfficialsItem name="Hon. Marwin R. Manalo" position="Kagawad" />
+      <OfficialsItem name="Hon. Alvin C. Pabilonia" position="Kagawad" />
+      <OfficialsItem name="Hon. Princess Lorena A. Callos" position="Kagawad" />
+      <OfficialsItem name="Hon. Bobby Mar B. Peregrino" position="Kagawad" />
+      <OfficialsItem
+        name="Hon. Andrew Regalado S. Dacumos"
+        position="Kagawad"
+      />
+      <OfficialsItem name="Hon. Pedrito C. Catanyag Jr." position="Kagawad" />
+      <OfficialsItem name="Hon. Rogelio G. Molina" position="Kagawad" />
+      <OfficialsItem
+        name="Maria Cristina Bianca C. Borja"
+        position="Secretary"
+      />
+      <OfficialsItem name="Nelson S. Añonueva" position="Secretary" />
     </CertificateOfficials>
   );
 };

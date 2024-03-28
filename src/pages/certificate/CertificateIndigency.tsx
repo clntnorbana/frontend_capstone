@@ -14,6 +14,7 @@ const CertificateIndigency = forwardRef<
   CertificateIndigencyProps
 >(({ data: request }, ref) => {
   const { data = [] } = useGetResidentByIdQuery(request.profile_id);
+  const resident = data ? data[0] : null;
 
   return (
     <div className="w-screen py-20 px-10" ref={ref}>
@@ -27,33 +28,38 @@ const CertificateIndigency = forwardRef<
           <p className="text-[14px] mb-5">To Whom It May Concern:</p>
           <div className="mb-10">
             <p className="text-[14px] mb-5">
-              This is to certify that{" "}
-              <span className="uppercase font-meium">{`${data[0]?.firstname} ${data[0]?.middlename} ${data[0]?.lastname}`}</span>
-              ,{" "}
-              <span className="font-medium">
-                {calculateAge(data[0]?.date_of_birth || "")},
+              This is to testify that{" "}
+              <span className="font-bold uppercase">
+                {resident?.firstname} {resident?.lastname},{" "}
               </span>
-              is temporarily residing at{" "}
-              <span className="uppercase font-medium">{`${data[0]?.number_street}, ${data[0]?.barangay}, ${data[0]?.city}`}</span>{" "}
-              is known to me belong to an{" "}
-              <span className="italic font-medium">indigent family.</span>
+              <span className="font-bold">
+                {calculateAge(resident?.date_of_birth || "")} years old,{" "}
+              </span>{" "}
+              {resident?.civil_status}, is a bonafide resident of{" "}
+              {resident?.number_street}, Barangay Malamig, City of Mandaluyong
+              {request.purpose === "Financial" ? (
+                <>
+                  {", "}
+                  is known to belong to an{" "}
+                  <span className="font-bold italic">
+                    indigent family.
+                  </span>{" "}
+                </>
+              ) : (
+                <>{"."}</>
+              )}
             </p>
             <p className="text-[14px] mb-5">
-              This certification is being issued upon the request of{" "}
-              <span className="uppercase font-medium">{`${data[0]?.firstname} ${data[0]?.middlename} ${data[0]?.lastname}`}</span>{" "}
-              for{" "}
-              <span className="uppercase font-semibold">
-                {request?.purpose}
-              </span>{" "}
-              and can be used for whatever legal intent and purpose it may
-              serve.
+              This certification is being issued upon the request of above-named
+              person for{" "}
+              <span className="uppercase font-bold">{request.purpose}</span> and
+              can be used for whatever legal intent and purpose it may serve him
+              best.
             </p>
             <p className="text-[14px]">
-              Issued this on{" "}
-              <span className="font-medium uppercase">
-                {getCurrentDateFormatted()}
-              </span>
-              , Barangay Malamig City of Mandaluyong.
+              Issued this of <span>{getCurrentDateFormatted()}</span>, at the
+              office of the Punong Barangay, Barangay Malamig, Mandaluyong City,
+              Philippines.
             </p>
           </div>
           <div className="flex flex-col items-end">

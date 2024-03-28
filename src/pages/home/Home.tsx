@@ -2,7 +2,7 @@ import { BadgeInfo, Search } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import HomeNote from "./HomeNotice";
-import logo2 from "../../assets/logo2.png";
+import logo from "../../assets/logo.png";
 import { Button } from "@/components/ui/button";
 import HomeSearchProfile from "./HomeSearchProfile";
 import HomeSearchRequest from "./HomeSearchRequest";
@@ -45,7 +45,7 @@ const Home = () => {
             <div className="h-[180px] w-[180px]">
               <img
                 className="w-full h-full object-cover"
-                src={logo2}
+                src={logo}
                 alt="logo"
               />
             </div>
