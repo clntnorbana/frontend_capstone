@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSendForgottenProfileMutation } from "@/redux/slices/resident.slice";
+import { motion } from "framer-motion";
 import { Info, X } from "lucide-react";
 import { useState } from "react";
 
@@ -47,9 +48,38 @@ const ForgotProfile = () => {
         </a>
       </Modal>
 
-      <div>
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 25,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        exit={{ opacity: 0, y: 25 }}
+        transition={{
+          duration: 0.1,
+          delay: 0.1,
+        }}
+      >
         <PageHeader title="Forgot your Profile ID?" />
-        <div className="max-w-[550px] mx-auto py-5">
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          exit={{ opacity: 0, y: 25 }}
+          transition={{
+            duration: 0.1,
+            delay: 0.3,
+          }}
+          className="max-w-[550px] mx-auto py-5"
+        >
           <form onSubmit={handleSubmit}>
             <div className="grid mb-2 w-full items-center gap-1.5">
               <label>Enter phone number</label>
@@ -84,8 +114,8 @@ const ForgotProfile = () => {
               Send
             </Button>
           </form>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };
