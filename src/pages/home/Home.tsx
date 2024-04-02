@@ -68,7 +68,7 @@ const Home = () => {
 
             <div>
               <h1 className="font-bold text-center mb-5 text-2xl uppercase leading-6">
-                Certificate Request <br /> Services System
+                Certificate Request Services <br /> System
               </h1>
               <p className="text-center text-sm font-bold">
                 Barangay Malamig, Mandaluyong City

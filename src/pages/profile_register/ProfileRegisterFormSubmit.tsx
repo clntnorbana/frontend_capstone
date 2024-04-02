@@ -1,3 +1,4 @@
+import Privacypolicy from "@/components/privacypolicy";
 import TermsCondition from "@/components/terms&condition";
 import { useState } from "react";
 
@@ -15,12 +16,20 @@ const ProfileRegisterFormSubmit = ({
   setBoxChecked,
 }: ProfileRegisterFormSubmitProps) => {
   const [openTermsCondition, setOpenTermsCondition] = useState<boolean>(false);
+  const [openPrivacyPolicy, setOpenPrivacyPolicy] = useState<boolean>(false);
 
   return (
     <>
+      {/* terms and condition modal */}
       <TermsCondition
         onOpen={openTermsCondition}
         onClose={() => setOpenTermsCondition(false)}
+      />
+
+      {/* privacy policy modal */}
+      <Privacypolicy
+        onOpen={openPrivacyPolicy}
+        onClose={() => setOpenPrivacyPolicy(false)}
       />
       <div className="text-center">
         <label>
@@ -29,13 +38,21 @@ const ProfileRegisterFormSubmit = ({
             checked={boxChecked}
             onChange={setBoxChecked}
           />{" "}
-          By checking the box, you agreed to our terms & condition
+          By checking the box, you agreed to our{" "}
           <button
             onClick={() => setOpenTermsCondition(true)}
             type="button"
             className="underline text-blue-600 hover:text-blue-800"
           >
             terms & condition
+          </button>{" "}
+          and{" "}
+          <button
+            type="button"
+            className="underline text-blue-600 hover:text-blue-800"
+            onClick={() => setOpenPrivacyPolicy(true)}
+          >
+            privacy policy
           </button>
           .
         </label>

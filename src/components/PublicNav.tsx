@@ -23,11 +23,12 @@ const PublicNav = () => {
 
   return (
     <>
-      <div className="flex justify-start bg-pink-500 px-5">
+      <div className="flex justify-between bg-pink-500 px-5">
         <p className="text-gray-200">
           Open hours{" "}
           <span className="font-semibold">Mon - Fri 8:00 am - 6:00 pm</span>{" "}
         </p>
+        <p className="text-gray-200 italic">847-777-955</p>
       </div>
       <nav className="lg:bg-pink-400 bg-white fixed sticky top-0 w-full h-[50px] z-50">
         <div className="container lg:px-52 mx-auto flex justify-end items-center relative h-full">

@@ -18,8 +18,8 @@ const HomeNote = ({ onClose }: HomeNoteProps) => {
       steps: [
         "The system will ask for your profile ID; please provide it. The system will allow you to make a request if you exist in the system.",
         "Once you successfully request a certificate, the system will provide a transaction ID. Keep it, as you can use it to check the request status.",
-        "The system will notify you via SMS message once your request is approved or rejected.",
-        "You can collect your documents from the barangay office. Just bring your valid ID as well as the SMS message received as part of your proof & identification.",
+        "The system will notify you via SMS message once your request is approved or rejected, proceed to search your request using your TRANSACTION ID in the search field in the home page.",
+        "Once your request has been approved, download and print the profiling form and proceed to barangay office to claim your requested document.",
       ],
     },
   ];

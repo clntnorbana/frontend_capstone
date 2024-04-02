@@ -20,7 +20,7 @@ const termsConditionList = [
   },
   {
     title: "Contact Information",
-    text: "For any questions or concerns regarding these Terms and Conditions, please contact us at [insert contact information].",
+    text: "For any questions or concerns regarding these Terms and Conditions, please contact us at barangaymalamig@gmail.com.",
   },
 ];
 
@@ -36,7 +36,7 @@ const TermsCondition = ({ onOpen, onClose }: TermsConditionProps) => {
         <div className="border-b">
           <h1 className="text-2xl py-2">Terms & Conditions</h1>
         </div>
-        <div className="border-b py-4 ">
+        <div className="border-b py-4">
           {termsConditionList.map((item, index) => {
             return (
               <div className="mb-3" key={index}>
