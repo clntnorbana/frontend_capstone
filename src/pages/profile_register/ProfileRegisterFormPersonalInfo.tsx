@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { ChangeEvent } from "react";
 import { ProfileRegisterFormType } from "./ProfileRegisterForm";
+import { grayTodayDate } from "@/utils/format.date";
 
 type InfoPropTypes = ProfileRegisterFormType;
 
@@ -87,6 +88,7 @@ const ProfileRegisterFormPersonalInfo = ({
           id="birthday"
           value={info.date_of_birth}
           onChange={handleInputChange}
+          max={grayTodayDate()}
         />
       </div>
       {/* birthplace */}
@@ -133,13 +135,15 @@ const ProfileRegisterFormPersonalInfo = ({
               <SelectItem value="single">Single</SelectItem>
               <SelectItem value="married">Married</SelectItem>
               <SelectItem value="widowed">Widowed</SelectItem>
+              <SelectItem value="single parent">Single Parent</SelectItem>
+              <SelectItem value="separated">Separated</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
       </div>
       {/* religion */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="religion">Religion</label>
+        <label htmlFor="religion">Religion (optional)</label>
         <Input
           name="religion"
           className="capitalize"
@@ -151,7 +155,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* occupation */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="occupation">Occupation</label>
+        <label htmlFor="occupation">Occupation (optional)</label>
         <Input
           name="occupation"
           className="capitalize"
@@ -163,7 +167,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* company */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="company">Company</label>
+        <label htmlFor="company">Company (optional)</label>
         <Input
           name="company"
           className="capitalize"

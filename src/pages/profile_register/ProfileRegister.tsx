@@ -32,6 +32,16 @@ const ProfileRegister = () => {
       }}
     >
       <PageHeader title="Profile Register" />
+      <div className="bg-gray-200 p-4 mt-4">
+        <p>
+          Your privacy is important to us. Please feel comfortable entering the
+          requested information in this form. Rest assured that we will handle
+          your data carefully and securely. If you have any problems, please
+          refer to our privacy policy or contact us directly. I appreciate your
+          trust and cooperation.
+        </p>
+      </div>
+
       <motion.div
         initial={{
           opacity: 0,
@@ -46,7 +56,7 @@ const ProfileRegister = () => {
           duration: 0.1,
           delay: 0.3,
         }}
-        className="max-w-[550px] mx-auto md:p-5"
+        className="max-w-[550px] mx-auto mt-[-30px]"
       >
         <Indicator steps={steps} currentStep={currentStep} />
         <ProfileRegisterForm

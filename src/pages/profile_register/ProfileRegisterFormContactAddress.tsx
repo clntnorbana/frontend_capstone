@@ -12,6 +12,9 @@ const ProfileRegisterFormContactAddress = ({
       {/* contact no */}
       <div className="grid w-full items-center gap-1.5 mb-2">
         <label>Contact no.</label>
+        <p className="italic text-red-600">
+          Note: Please provide your phone number to receive updates.
+        </p>
         <Input
           name="contact_no"
           placeholder="e.g. 09123456789"
