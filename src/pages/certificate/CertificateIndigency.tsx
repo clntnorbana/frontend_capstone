@@ -37,17 +37,8 @@ const CertificateIndigency = forwardRef<
               </span>{" "}
               {resident?.civil_status}, is a bonafide resident of{" "}
               {resident?.number_street}, Barangay Malamig, City of Mandaluyong
-              {request.purpose === "Financial" ? (
-                <>
-                  {", "}
-                  is known to belong to an{" "}
-                  <span className="font-bold italic">
-                    indigent family.
-                  </span>{" "}
-                </>
-              ) : (
-                <>{"."}</>
-              )}
+              is known to belong to an{" "}
+              <span className="font-bold italic">indigent family.</span>
             </p>
             <p className="text-[14px] mb-5">
               This certification is being issued upon the request of above-named

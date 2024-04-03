@@ -38,18 +38,7 @@ const CertificateClearance = forwardRef<
               <span className="font-bold"> years old</span>,{" "}
               {resident?.civil_status} is a bonafide resident of{" "}
               <span className="capitalize">{resident?.number_street}</span>,
-              Barangay Malamig, City of Mandaluyong City
-              {request.purpose === "Financial" ? (
-                <>
-                  {", "}
-                  is known to belong to an{" "}
-                  <span className="font-bold italic">
-                    indigent family.
-                  </span>{" "}
-                </>
-              ) : (
-                <>{"."}</>
-              )}
+              Barangay Malamig, City of Mandaluyong City.
             </p>
             <p className="text-[14px] mb-5">
               This certification is being issued upon the request of above-named
