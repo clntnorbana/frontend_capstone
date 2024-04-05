@@ -6,12 +6,16 @@ import { useLoginMutation } from "@/redux/slices/employee.slice";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import LoginForgotPassword from "./LoginForgotPassword";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  const [openForgotPasswordModal, setOpenForgotPasswordModal] =
+    useState<boolean>(false);
 
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
@@ -37,6 +41,11 @@ const LoginForm = () => {
 
   return (
     <>
+      <LoginForgotPassword
+        onOpen={openForgotPasswordModal}
+        onClose={() => setOpenForgotPasswordModal(false)}
+      />
+
       {/* loading screen */}
       <Loader loading={isLoading} message="Logging in, please wait..." />
 
@@ -78,6 +87,14 @@ const LoginForm = () => {
         </div>
         <Button className="mt-2 w-full">Login</Button>
       </form>
+      <div className="flex justify-center">
+        <button
+          className="underline text-gray-700 mt-2"
+          onClick={() => setOpenForgotPasswordModal(true)}
+        >
+          forgot password?
+        </button>
+      </div>
     </>
   );
 };

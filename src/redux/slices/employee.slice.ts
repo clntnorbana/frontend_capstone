@@ -86,6 +86,13 @@ export const employeeApiSlice = apiSlice.injectEndpoints({
 
       invalidatesTags: ["Employee"],
     }),
+    changeForgottenPassword: builder.mutation({
+      query: (data) => ({
+        url: `${URL}/change_forgotten_password`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -100,4 +107,5 @@ export const {
   useDeleteAccountMutation,
   useGetEmployeeQuery,
   useGetAllEmployeesQuery,
+  useChangeForgottenPasswordMutation,
 } = employeeApiSlice;
