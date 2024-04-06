@@ -15,6 +15,11 @@ const ProfileRegisterFormContactAddress = ({
         <p className="italic text-red-600">
           Note: Please provide your phone number to receive updates.
         </p>
+        {info.contact_no.length !== 11 ? (
+          <p className="text-sm text-red-700">
+            Phone number should be 11 digits only.
+          </p>
+        ) : null}
         <Input
           name="contact_no"
           placeholder="e.g. 09123456789"
