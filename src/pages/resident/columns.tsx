@@ -64,7 +64,10 @@ export const columns: ColumnDef<TResident>[] = [
   },
   {
     id: "name",
-    accessorFn: (row) => `${row.firstname} ${row.middlename} ${row.lastname}`,
+    accessorFn: (row) =>
+      `${row.firstname} ${row.middlename ? row.middlename : ""} ${
+        row.lastname
+      }`,
     cell: ({ row }) => {
       return <span className="capitalize">{row.getValue("name")}</span>;
     },

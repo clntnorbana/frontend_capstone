@@ -19,8 +19,10 @@ const ProfileForm = forwardRef<HTMLDivElement, ProfileFormProps>(
     return (
       <div ref={ref} className="p-16">
         <div className="absolute top-[2%]">
-          <p className="text-[12px]">{request.transaction_id}</p>
-          <p className="text-[12px]">{request.profile_id}</p>
+          <p className="text-[12px]">
+            Transaction ID - {request.transaction_id}
+          </p>
+          <p className="text-[12px]">Profile ID - {request.profile_id}</p>
         </div>
         <header>
           <h1 className="uppercase font-bold text-3xl text-center">

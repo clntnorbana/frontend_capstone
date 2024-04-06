@@ -148,9 +148,7 @@ const ResidentProfile = () => {
                   </div>
                 ) : null}
                 <p className="capitalize font-bold text-gray-700 text-2xl text-center">
-                  {resident?.firstname}{" "}
-                  {resident?.middlename ? resident.middlename : null}{" "}
-                  {resident?.lastname}
+                  {resident?.firstname} {resident?.lastname}
                 </p>
               </div>
             </div>
