@@ -66,7 +66,7 @@ const LoginForgotPassword = ({ onOpen, onClose }: LoginForgotPasswordProps) => {
                 <label htmlFor="birthday">Employee ID*</label>
                 <Input
                   type="text"
-                  placeholder="Enter employee _id"
+                  placeholder="Enter employee id"
                   value={employee_id}
                   onChange={(e) => setEmployee_id(e.target.value)}
                 />
