@@ -254,7 +254,11 @@ const ProfileRegisterForm = ({
           ) : null}
           {currentStep < steps.length ? (
             <Button
-              disabled={emptyInput || (currentStep === 3 && !file)}
+              disabled={
+                emptyInput ||
+                (currentStep === 3 && !file) ||
+                info.contact_no.length !== 11
+              }
               type="button"
               onClick={handleNextStep}
             >
