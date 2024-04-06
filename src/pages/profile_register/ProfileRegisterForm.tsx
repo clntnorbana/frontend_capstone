@@ -59,7 +59,7 @@ const ProfileRegisterForm = ({
   });
 
   const hasNumber = (input: string): boolean => {
-    const regex = /^[0-9]+$/;
+    const regex = /\d/;
     return regex.test(input);
   };
 
