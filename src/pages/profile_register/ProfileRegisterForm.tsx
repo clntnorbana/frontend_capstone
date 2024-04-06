@@ -58,6 +58,11 @@ const ProfileRegisterForm = ({
     voter: 0,
   });
 
+  const hasNumber = (input: string): boolean => {
+    const regex = /\d/;
+    return regex.test(input);
+  };
+
   // check inputs
   useEffect(() => {
     const requiredInputs: { [steps: number]: string[] } = {
@@ -257,7 +262,10 @@ const ProfileRegisterForm = ({
               disabled={
                 emptyInput ||
                 (currentStep === 3 && !file) ||
-                (currentStep === 2 && info.contact_no.length !== 11)
+                (currentStep === 2 && info.contact_no.length !== 11) ||
+                (currentStep === 1 && hasNumber(info.firstname)) ||
+                hasNumber(info.lastname) ||
+                hasNumber(info.middlename)
               }
               type="button"
               onClick={handleNextStep}
