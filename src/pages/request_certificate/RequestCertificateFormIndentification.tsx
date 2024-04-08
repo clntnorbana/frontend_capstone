@@ -37,6 +37,11 @@ const RequestCertificateFormIndentification = ({
             <p className="my-4 font-bold italic">
               To confirm your identity, please provide the following:
             </p>
+            <p className="bg-red-400 p-2 text-gray-50 my-3">
+              Complete all required fields to proceed. Make sure to provide
+              clear pictures and valid identification to prevent any issues
+              during the review process.
+            </p>
           </h1>
           <div className="grid w-full items-center gap-1.5 mb-2">
             <label>

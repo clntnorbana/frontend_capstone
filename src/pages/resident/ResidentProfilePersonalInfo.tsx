@@ -150,9 +150,11 @@ const ResidentProfilePersonalInfo = ({
           <span className="capitalize">
             {" "}
             {resident?.firstname} {resident?.lastname}'
-            {resident?.lastname.charAt(resident.lastname.length - 1) === "s"
-              ? ""
-              : "s"}{" "}
+            {resident?.lastname.charAt(resident.lastname.length - 1) === "s" ? (
+              ""
+            ) : (
+              <span className="lowercase">s</span>
+            )}{" "}
           </span>
           profile?
         </p>
@@ -182,7 +184,7 @@ const ResidentProfilePersonalInfo = ({
 
           {/* first name */}
           <div className="grid w-full items-center gap-0.3 mb-2">
-            <label>First name</label>
+            <label>First name*</label>
             <Input
               className="capitalize"
               type="text"
@@ -193,7 +195,7 @@ const ResidentProfilePersonalInfo = ({
           </div>
           {/* lastname */}
           <div className="grid w-full items-center gap-0.3 mb-2">
-            <label>Last name</label>
+            <label>Last name*</label>
             <Input
               className="capitalize"
               type="text"
@@ -204,7 +206,7 @@ const ResidentProfilePersonalInfo = ({
           </div>
           {/* Middlename */}
           <div className="grid w-full items-center gap-0.3 mb-2">
-            <label>M.I</label>
+            <label>Middlename</label>
             <Input
               className="capitalize"
               type="text"
@@ -264,7 +266,7 @@ const ResidentProfilePersonalInfo = ({
 
           {/* birthday */}
           <div className="grid w-full items-center gap-0.3 mb-2">
-            <label>Birthdate</label>
+            <label>Birthdate*</label>
             <Input
               type={editMode ? "date" : "text"}
               value={
@@ -292,7 +294,7 @@ const ResidentProfilePersonalInfo = ({
 
           {/* Citizenship */}
           <div className="grid w-full items-center gap-0.3 mb-2">
-            <label>Citizenship</label>
+            <label>Citizenship*</label>
             <Input
               className="capitalize"
               type="text"
@@ -369,7 +371,7 @@ const ResidentProfilePersonalInfo = ({
         <div className="grid grid-cols-2 space-x-5">
           {/* contact no */}
           <div className="grid w-full items-center gap-0.3 mb-2">
-            <label>Phone #</label>
+            <label>Phone #*</label>
             <Input
               type="number"
               placeholder="Enter phone #"
@@ -392,7 +394,7 @@ const ResidentProfilePersonalInfo = ({
 
         {/* street number */}
         <div className="grid w-full items-center gap-0.3 mb-2">
-          <label>Number / Street</label>
+          <label>Number / Street*</label>
           <Input
             type="text"
             placeholder="Enter number / street address"

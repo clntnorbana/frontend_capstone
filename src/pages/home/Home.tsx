@@ -74,12 +74,6 @@ const Home = () => {
                 Barangay Malamig, Mandaluyong City
               </p>
               <div className="mt-5 flex flex-col justify-center space-y-2">
-                <NavLink
-                  to={"/forgot_profile"}
-                  className={"underline text-blue-900 font-bold"}
-                >
-                  forgot profile ID?
-                </NavLink>
                 {/* search profile id */}
                 <Button
                   variant={"outline"}
@@ -106,6 +100,14 @@ const Home = () => {
                   isOpen={openSearchRequestModal}
                   onClose={() => setOpenSearchRequestModal(false)}
                 />
+              </div>
+              <div className="flex justify-center my-3">
+                <NavLink
+                  to={"/forgot_profile"}
+                  className={"underline text-blue-900 font-bold"}
+                >
+                  forgot profile ID?
+                </NavLink>
               </div>
               <div className="flex justify-center space-x-1 mt-5">
                 <NavLink

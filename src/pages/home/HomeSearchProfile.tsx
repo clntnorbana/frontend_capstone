@@ -44,16 +44,10 @@ const HomeSearchProfile = ({ isOpen, onClose }: HomeSearchProfileProps) => {
             <p>loading...</p>
           ) : residentProfile && residentProfile.length > 0 ? (
             <div className="flex flex-col justify-center items-center mt-5">
-              <h1 className="font-bold text-gray-700 mb-4 text-lg">
+              <h1 className="font-bold text-gray-700 text-lg">
                 You are registered!
               </h1>
-              <div className="w-[130px] h-[130px] rounded-full overflow-hidden">
-                <img
-                  className="object-cover h-full w-full"
-                  src={residentProfile[0].img_url}
-                  alt="image"
-                />
-              </div>
+
               <div className="mt-3 text-center">
                 <p className="capitalize font-bold text-gray-700">
                   {residentProfile[0].firstname}{" "}

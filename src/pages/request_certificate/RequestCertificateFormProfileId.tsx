@@ -34,8 +34,8 @@ const RequestCertificateFormProfileId = ({
           ? isLoading
             ? "loading..."
             : !idExists && (
-                <p className="p-2 mb-2 bg-red-300 text-gray-50 rounded text-center">
-                  Profile id do not exists
+                <p className="p-2 mb-2 bg-red-500 text-gray-50 rounded text-center">
+                  Profile id do not exist
                 </p>
               )
           : null}

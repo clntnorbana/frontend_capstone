@@ -45,7 +45,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* middlename */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label>Middlename</label>
+        <label>Middlename (optional)</label>
         <Input
           name="middlename"
           type="text"
@@ -134,7 +134,7 @@ const ProfileRegisterFormPersonalInfo = ({
             <SelectGroup>
               <SelectItem value="single">Single</SelectItem>
               <SelectItem value="married">Married</SelectItem>
-              <SelectItem value="widowed">Widowed</SelectItem>
+              <SelectItem value="widow/er">Widow/er</SelectItem>
               <SelectItem value="single parent">Single Parent</SelectItem>
               <SelectItem value="separated">Separated</SelectItem>
             </SelectGroup>
