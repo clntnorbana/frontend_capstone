@@ -81,8 +81,8 @@ const LoginForgotPassword = ({ onOpen, onClose }: LoginForgotPasswordProps) => {
                 />
               </div>
               <p className="text-sm italic my-2 text-gray-600 font-bold">
-                Your new password will be sent to the phone number associated
-                with your account.
+                Your temporary password will be sent to the phone number
+                associated with your account.
               </p>
             </div>
             <div className="flex justify-end space-x-1 mt-4">
