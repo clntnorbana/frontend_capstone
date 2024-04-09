@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useAppSelector } from "@/redux/hooks";
 import { useDeleteResidentMutation } from "@/redux/slices/resident.slice";
 import { TResident } from "@/types";
-import { Trash2 } from "lucide-react";
+import { Eye, EyeOff, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -23,6 +23,8 @@ const ResidentDeleteModal = ({
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [successMsg, setSuccessMsg] = useState<string>("");
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // current logged in data
   const employee = useAppSelector((state) => state.credentials.userInfo);
@@ -97,13 +99,25 @@ const ResidentDeleteModal = ({
 
             <div className="mt-5">
               <label>Enter your password to confirm</label>
-              <Input
-                className="mt-1"
-                type="text"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <Input
+                  className="mt-1"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  type="button"
+                  className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                    showPassword ? "opacity-[1]" : "opacity-[0.5]"
+                  }`}
+                  onClick={() => setShowPassword((curr) => !curr)}
+                >
+                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                </Button>
+              </div>
+
               {/* error message */}
               {error ? (
                 <p className="font-bold mt-2 text-center italic">{error}</p>

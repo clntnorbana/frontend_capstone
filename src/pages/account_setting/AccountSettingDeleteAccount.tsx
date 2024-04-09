@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { removeCredentials } from "@/redux/slices/auth.slice";
 import { useDeleteAccountMutation } from "@/redux/slices/employee.slice";
-import { Trash2 } from "lucide-react";
+import { Eye, EyeOff, Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -23,6 +23,8 @@ const AccountSettingDeleteAccount = ({
   const [password, setPassword] = useState<string>("");
   const [boxChecked, setBoxChecked] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   // handle close modal
   const handleCloseModal = () => {
@@ -80,12 +82,23 @@ const AccountSettingDeleteAccount = ({
             <label className="text-sm font-semibold text-gray-400">
               Enter Password
             </label>
-            <Input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Button
+                type="button"
+                className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                  showPassword ? "opacity-[1]" : "opacity-[0.5]"
+                }`}
+                onClick={() => setShowPassword((curr) => !curr)}
+              >
+                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+              </Button>
+            </div>
           </div>
 
           {/* error message */}

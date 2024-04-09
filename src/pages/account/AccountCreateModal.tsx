@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateAccountMutation } from "@/redux/slices/employee.slice";
+import { Eye, EyeOff } from "lucide-react";
 import { ChangeEvent, useEffect, useState } from "react";
 
 interface CreateAccountModalProps {
@@ -28,6 +29,8 @@ const AccountCreateModal = ({ onOpen, onClose }: CreateAccountModalProps) => {
   const [lastname, setLastname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [contact_no, setContact_no] = useState<string>("");
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -137,19 +140,49 @@ const AccountCreateModal = ({ onOpen, onClose }: CreateAccountModalProps) => {
                   </div>
                   <div className="grid w-full items-center gap-1.5 mb-2">
                     <label>Password</label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <Button
+                        type="button"
+                        className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                          showPassword ? "opacity-[1]" : "opacity-[0.5]"
+                        }`}
+                        onClick={() => setShowPassword((curr) => !curr)}
+                      >
+                        {showPassword ? (
+                          <Eye size={20} />
+                        ) : (
+                          <EyeOff size={20} />
+                        )}
+                      </Button>
+                    </div>
                   </div>
                   <div className="grid w-full items-center gap-1.5 mb-2">
                     <label>Confirm Password</label>
-                    <Input
-                      type="password"
-                      value={passwordRepeat}
-                      onChange={(e) => setPasswordRepeat(e.target.value)}
-                    />
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        value={passwordRepeat}
+                        onChange={(e) => setPasswordRepeat(e.target.value)}
+                      />
+                      <Button
+                        type="button"
+                        className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                          showPassword ? "opacity-[1]" : "opacity-[0.5]"
+                        }`}
+                        onClick={() => setShowPassword((curr) => !curr)}
+                      >
+                        {showPassword ? (
+                          <Eye size={20} />
+                        ) : (
+                          <EyeOff size={20} />
+                        )}
+                      </Button>
+                    </div>
                   </div>
                   <div className="grid w-full items-center gap-1.5 mb-2">
                     <label>Admin Role</label>

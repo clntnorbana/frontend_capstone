@@ -4,7 +4,7 @@ import UnauthorizedModal from "@/components/UnauthorizedModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUpdatePasswordMutation } from "@/redux/slices/employee.slice";
-import { KeyRound } from "lucide-react";
+import { Eye, EyeOff, KeyRound } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type AccountSettingUpdatePasswordProps = {
@@ -23,6 +23,10 @@ const AccountSettingUpdatePassword = ({
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
+
+  const [showCurrentPassword, setShowCurrentPassword] =
+    useState<boolean>(false);
+  const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
 
   const handleCloseModal = () => {
     resetModal();
@@ -104,36 +108,81 @@ const AccountSettingUpdatePassword = ({
                   <label className="text-sm font-semibold text-gray-400">
                     Current Password
                   </label>
-                  <Input
-                    type="password"
-                    placeholder="Enter current password"
-                    value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
-                  />
+                  <div className="relative">
+                    <Input
+                      type={showCurrentPassword ? "text" : "password"}
+                      placeholder="Enter current password"
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                    />
+                    <Button
+                      type="button"
+                      className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                        showCurrentPassword ? "opacity-[1]" : "opacity-[0.5]"
+                      }`}
+                      onClick={() => setShowCurrentPassword((curr) => !curr)}
+                    >
+                      {showCurrentPassword ? (
+                        <Eye size={20} />
+                      ) : (
+                        <EyeOff size={20} />
+                      )}
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="grid max-w-sm items-center mb-2">
                   <label className="text-sm font-semibold text-gray-400">
                     New Password
                   </label>
-                  <Input
-                    type="password"
-                    placeholder="Enter new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
+                  <div className="relative">
+                    <Input
+                      type={showNewPassword ? "text" : "password"}
+                      placeholder="Enter new password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                    <Button
+                      type="button"
+                      className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                        showNewPassword ? "opacity-[1]" : "opacity-[0.5]"
+                      }`}
+                      onClick={() => setShowNewPassword((curr) => !curr)}
+                    >
+                      {showNewPassword ? (
+                        <Eye size={20} />
+                      ) : (
+                        <EyeOff size={20} />
+                      )}
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="grid max-w-sm items-center mb-2">
                   <label className="text-sm font-semibold text-gray-400">
                     Repeat New Password
                   </label>
-                  <Input
-                    type="password"
-                    placeholder="Enter new password"
-                    value={passwordRepeat}
-                    onChange={(e) => setPasswordRepeat(e.target.value)}
-                  />
+                  <div className="relative">
+                    <Input
+                      type={showNewPassword ? "text" : "password"}
+                      placeholder="Enter new password"
+                      value={passwordRepeat}
+                      onChange={(e) => setPasswordRepeat(e.target.value)}
+                    />
+                    <Button
+                      type="button"
+                      className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                        showNewPassword ? "opacity-[1]" : "opacity-[0.5]"
+                      }`}
+                      onClick={() => setShowNewPassword((curr) => !curr)}
+                    >
+                      {showNewPassword ? (
+                        <Eye size={20} />
+                      ) : (
+                        <EyeOff size={20} />
+                      )}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

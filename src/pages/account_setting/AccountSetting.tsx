@@ -7,7 +7,7 @@ import {
   useGetEmployeeQuery,
   useUpdateEmployeeMutation,
 } from "@/redux/slices/employee.slice";
-import { Edit2, KeyRound, Trash2 } from "lucide-react";
+import { Edit2, Eye, EyeOff, KeyRound, Trash2 } from "lucide-react";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import AccountSettingUpdatePassword from "./AccountSettingUpdatePassword";
 import AccountSettingDeleteAccount from "./AccountSettingDeleteAccount";
@@ -35,6 +35,8 @@ const Accountsetting = () => {
     useGetEmployeeQuery(employeeInfo.employee_id);
   const employee = employeeData ? employeeData[0] : undefined;
   const employeeName = `${employee?.firstname} ${employee?.lastname}`;
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   useEffect(() => {
     if (employee) {
@@ -248,7 +250,7 @@ const Accountsetting = () => {
                 {/* middlename */}
                 <div className="grid max-w-sm items-center mb-2">
                   <label className="text-sm font-semibold text-gray-400">
-                    M.I.
+                    Middlename
                   </label>
                   <Input
                     disabled={!editMode}
@@ -315,13 +317,28 @@ const Accountsetting = () => {
                     <label className="text-sm font-semibold text-gray-400">
                       Password
                     </label>
-                    <Input
-                      disabled={!editMode}
-                      type="password"
-                      placeholder="Enter Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <div className="relative">
+                      <Input
+                        disabled={!editMode}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <Button
+                        type="button"
+                        className={`bg-transparent hover:bg-transparent text-gray-900 absolute top-0 right-0 ${
+                          showPassword ? "opacity-[1]" : "opacity-[0.5]"
+                        }`}
+                        onClick={() => setShowPassword((curr) => !curr)}
+                      >
+                        {showPassword ? (
+                          <Eye size={20} />
+                        ) : (
+                          <EyeOff size={20} />
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 ) : null}
               </div>
