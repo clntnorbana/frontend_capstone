@@ -154,12 +154,14 @@ const Accountsetting = () => {
                     Change Password <KeyRound size={15} className="ml-1" />
                   </button>
 
-                  <button
-                    className="flex items-center text-red-500 text-sm hover:underline"
-                    onClick={() => setDeleteAccount(true)}
-                  >
-                    Delete Account <Trash2 size={15} className="ml-1" />
-                  </button>
+                  {employee?.username === "admin" ? null : (
+                    <button
+                      className="flex items-center text-red-500 text-sm hover:underline"
+                      onClick={() => setDeleteAccount(true)}
+                    >
+                      Delete Account <Trash2 size={15} className="ml-1" />
+                    </button>
+                  )}
                 </>
               ) : null}
             </div>

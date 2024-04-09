@@ -48,7 +48,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
       />
 
       <div className="bg-gray-50 shadow p-10 rounded-lg w-[300px] flex flex-col justify-center items-center text-gray-700 border-gray-200 hover:bg-gray-100 relative">
-        {employee?.admin_role === "editor" ? (
+        {employee?.admin_role === "editor" && employee.username === "admin" ? (
           <div className="absolute top-2 right-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -117,7 +117,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
 
         {account.admin_role === "editor" ? (
           <p className="text-gray-500 absolute top-[5%] left-[5%] font-semibold">
-            Editor
+            {account.username === "admin" ? "Root Admin" : "Editor"}
           </p>
         ) : null}
       </div>
