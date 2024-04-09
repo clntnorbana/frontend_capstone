@@ -72,25 +72,25 @@ const ResidentProfile = () => {
                 <span>{formatDate(resident?.updated_at || "")}</span>
               </p>
             </div>
-            <div className="space-x-1">
-              {!editMode ? (
+            {isEditor() ? (
+              <div className="space-x-1">
+                {!editMode ? (
+                  <Button
+                    className="bg-blue-600 hover:bg-blue-800"
+                    variant={"default"}
+                    onClick={() => setEditMode(true)}
+                  >
+                    Click here to edit
+                  </Button>
+                ) : null}
                 <Button
-                  disabled={!isEditor()}
-                  className="bg-blue-600 hover:bg-blue-800"
-                  variant={"default"}
-                  onClick={() => setEditMode(true)}
+                  variant={"destructive"}
+                  onClick={() => setOpenDeleteModal(true)}
                 >
-                  Click here to edit
+                  Delete this profile
                 </Button>
-              ) : null}
-              <Button
-                disabled={!isEditor()}
-                variant={"destructive"}
-                onClick={() => setOpenDeleteModal(true)}
-              >
-                Delete this profile
-              </Button>
-            </div>
+              </div>
+            ) : null}
           </div>
 
           {/* body */}

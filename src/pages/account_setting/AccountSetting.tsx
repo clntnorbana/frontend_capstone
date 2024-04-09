@@ -277,7 +277,7 @@ const Accountsetting = () => {
                     Username
                   </label>
                   <Input
-                    disabled={!editMode}
+                    disabled={!editMode || employee?.username === "admin"}
                     type="text"
                     placeholder="Enter username"
                     value={editMode ? username : employee?.username}
