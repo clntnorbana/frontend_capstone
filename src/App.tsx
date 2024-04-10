@@ -52,7 +52,7 @@ const App = () => {
             path="/account/setting/:employee_id"
             element={<Accountsetting />}
           />
-          <Route path="/archives" element={<Archives />} />
+          <Route path="/archive" element={<Archives />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -39,8 +39,8 @@ const SidebarNav = () => {
       />
       <SidebarItem
         icon={<PackageOpen size={20} />}
-        text="Archives"
-        path="/archives"
+        text="Archive"
+        path="/archive"
       />
     </Sidebar>
   );
