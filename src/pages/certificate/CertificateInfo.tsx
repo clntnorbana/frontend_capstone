@@ -109,7 +109,7 @@ const CertificateInfo = () => {
               to={`/resident/profile/${request?.profile_id}`}
               className="flex items-center space-x-1 hover:underline hover:text-gray-400 rounded"
             >
-              <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
+              <div className="h-[50px] w-[50px] overflow-hidden rounded-full flex justify-center items-center bg-gray-400">
                 {resident?.img_url ? (
                   <img
                     className="w-full h-full object-cover"
@@ -117,7 +117,7 @@ const CertificateInfo = () => {
                     alt={resident?.img_url}
                   />
                 ) : (
-                  <span>
+                  <span className="font-bold text-white">
                     {residentName
                       .split(" ")
                       .map((word) => word.charAt(0).toUpperCase())
@@ -164,24 +164,6 @@ const CertificateInfo = () => {
                   </button>
                 </>
               ) : null}
-
-              {/* {request?.status === "approved" ||
-              request?.status === "rejected" ? (
-                <button
-                  className="bg-gray-300 hover:bg-gray-400 text-red-500 font-bold py-2 px-4 rounded-r flex items-center space-x-1 text-sm"
-                  onClick={() => setOpenDeleteModal(true)}
-                >
-                  <Trash2 size={20} />
-                  <span>Delete</span>
-                </button>
-              ) : null} */}
-
-              {/* {request?.status === "rejected" ? (
-                <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r flex items-center space-x-1 text-sm">
-                  <X size={20} />
-                  <span>Undo</span>
-                </button>
-              ) : null} */}
             </div>
           </div>
           <div>

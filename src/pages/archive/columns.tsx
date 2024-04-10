@@ -18,7 +18,7 @@ export const columns: ColumnDef<TArchive>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const resident = row.original;
+      const item = row.original;
 
       return (
         <DropdownMenu>
@@ -30,19 +30,13 @@ export const columns: ColumnDef<TArchive>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(resident.profile_id || "")
-              }
-            >
-              Copy profile ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <NavLink to={`/resident/profile/${resident.profile_id}`}>
+              <NavLink to={`/resident/profile/${item.profile_id}`}>
                 View resident
               </NavLink>
             </DropdownMenuItem>
+            <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

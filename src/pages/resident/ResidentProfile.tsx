@@ -103,7 +103,7 @@ const ResidentProfile = () => {
             {/* image */}
             <div className="flex justify-center mt-10">
               <div className="flex flex-col items-center mb-5">
-                <div className="h-[170px] w-[170px] rounded-full overflow-hidden border border-gray-800">
+                <div className="h-[170px] w-[170px] rounded-full overflow-hidden border border-gray-800 flex justify-center items-center bg-gray-400">
                   {editMode && file ? (
                     <ImagePreview file={fileProp} />
                   ) : (
@@ -115,7 +115,7 @@ const ResidentProfile = () => {
                           alt={resident?.img_url}
                         />
                       ) : (
-                        <span>
+                        <span className="text-4xl font-bold text-white">
                           {residentName
                             .split(" ")
                             .map((word) => word.charAt(0).toUpperCase())

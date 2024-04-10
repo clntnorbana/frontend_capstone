@@ -83,7 +83,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
           </div>
         ) : null}
 
-        <div className="rounded-full h-[100px] w-[100px] flex justify-center items-center font-medium bg-gray-400 mb-3 overflow-hidden">
+        <div className="rounded-full h-[100px] w-[100px] flex justify-center items-center bg-gray-400 mb-3 overflow-hidden">
           {account.img_url ? (
             <img
               className="w-full h-full object-cover"
