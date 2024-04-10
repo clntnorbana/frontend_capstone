@@ -47,10 +47,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
         account={account}
       />
 
-      <NavLink
-        to={`/account/setting/${account.employee_id}`}
-        className="bg-gray-50 shadow p-10 rounded-lg w-[300px] flex flex-col justify-center items-center text-gray-700 border-gray-200 hover:bg-gray-100 relative"
-      >
+      <div className="bg-gray-50 shadow p-10 rounded-lg w-[300px] flex flex-col justify-center items-center text-gray-700 border-gray-200 hover:bg-gray-100 relative">
         {employee?.admin_role === "editor" && employee.username === "admin" ? (
           <div className="absolute top-2 right-2">
             <DropdownMenu>
@@ -62,6 +59,9 @@ const AccountCard = ({ account }: AccountCardProps) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <NavLink to={`/account/setting/${account.employee_id}`}>
+                  <DropdownMenuItem>View Employee</DropdownMenuItem>
+                </NavLink>
                 <DropdownMenuItem
                   disabled={account.employee_id === employee.employee_id}
                   className="cursor-pointer"
@@ -82,6 +82,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
             </DropdownMenu>
           </div>
         ) : null}
+
         <div className="rounded-full h-[100px] w-[100px] flex justify-center items-center font-medium bg-gray-400 mb-3 overflow-hidden">
           {account.img_url ? (
             <img
@@ -120,7 +121,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
             {account.username === "admin" ? "Root Admin" : "Editor"}
           </p>
         ) : null}
-      </NavLink>
+      </div>
     </>
   );
 };

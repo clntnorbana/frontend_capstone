@@ -38,6 +38,7 @@ import { Input } from "@/components/ui/input";
 import { useAppSelector } from "@/redux/hooks";
 import { useGetEmployeeQuery } from "@/redux/slices/employee.slice";
 import CertificateArchiveModal from "./CertificateArchiveModal";
+import { useGetRequestCertificatesQuery } from "@/redux/slices/certificate.slice";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -79,6 +80,15 @@ export function DataTable<TData, TValue>({
   const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
   const { data: employeeData } = useGetEmployeeQuery(employeeInfo.employee_id);
   const employee = employeeData ? employeeData[0] : undefined;
+
+  const { data: requestData } = useGetRequestCertificatesQuery();
+
+  const hasApprovedOrRejectedStatus = () => {
+    return requestData?.some(
+      (request) =>
+        request.status === "approved" || request.status === "rejected"
+    );
+  };
 
   return (
     <div>
@@ -122,7 +132,8 @@ export function DataTable<TData, TValue>({
           </DropdownMenu>
 
           {/* archive button */}
-          {employee?.admin_role === "editor" ? (
+          {employee?.admin_role === "editor" &&
+          hasApprovedOrRejectedStatus() ? (
             <Button onClick={() => setOpenArchiveModal(true)}>
               Archive (Approved / Rejected)
             </Button>
