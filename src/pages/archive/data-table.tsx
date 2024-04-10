@@ -35,6 +35,9 @@ import {
 // ui components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAppSelector } from "@/redux/hooks";
+import { useGetEmployeeQuery } from "@/redux/slices/employee.slice";
+import ArchiveDeleteAllModal from "./ArchiveDeleteAllModal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -70,6 +73,13 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
+  const { data: employeeData } = useGetEmployeeQuery(employeeInfo.employee_id);
+  const employee = employeeData ? employeeData[0] : undefined;
+
+  const [openDeleteAllArchivesModal, setOpenDeleteAllArchivesModal] =
+    React.useState<boolean>(false);
+
   return (
     <div>
       <div className="flex items-center py-4 gap-5">
@@ -83,32 +93,51 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              show/hide columns
+        <div className="space-x-2 ml-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                show/hide columns
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* delete all archive button */}
+          {employee?.admin_role === "editor" ? (
+            <Button
+              variant={"destructive"}
+              onClick={() => setOpenDeleteAllArchivesModal(true)}
+            >
+              Delete Archive Record
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+          ) : null}
+
+          {/* delete all archives modal */}
+          <ArchiveDeleteAllModal
+            onOpen={openDeleteAllArchivesModal}
+            onClose={() => setOpenDeleteAllArchivesModal(false)}
+            employee_id={employee?.employee_id}
+          />
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

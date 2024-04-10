@@ -22,8 +22,31 @@ export const archiveApiSlice = apiSlice.injectEndpoints({
       query: () => `${URL}/get_archives`,
       providesTags: ["Archive"],
     }),
+
+    // delete single archive
+    deleteSingleArchive: builder.mutation({
+      query: (transaction_id) => ({
+        url: `${URL}/delete_single/${transaction_id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Archive"],
+    }),
+
+    // delete all archives
+    deleteAllArchives: builder.mutation({
+      query: (data) => ({
+        url: `${URL}/delete_all`,
+        method: "DELETE",
+        body: data,
+      }),
+      invalidatesTags: ["Archive"],
+    }),
   }),
 });
 
-export const { useMoveToArchivesMutation, useGetArchivesQuery } =
-  archiveApiSlice;
+export const {
+  useMoveToArchivesMutation,
+  useGetArchivesQuery,
+  useDeleteSingleArchiveMutation,
+  useDeleteAllArchivesMutation,
+} = archiveApiSlice;

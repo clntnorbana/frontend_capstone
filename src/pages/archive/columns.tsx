@@ -1,46 +1,15 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-// import { formatDate } from "@/helpers/format.helpers";
 import { NavLink } from "react-router-dom";
 import { TArchive } from "@/types";
 import { formatDate } from "@/utils/format.date";
+import ArchiveActionCell from "./ArchiveActionCell";
 
 export const columns: ColumnDef<TArchive>[] = [
   {
     id: "actions",
-    cell: ({ row }) => {
-      const item = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only"></span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <NavLink to={`/resident/profile/${item.profile_id}`}>
-                View resident
-              </NavLink>
-            </DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ArchiveActionCell,
   },
   {
     accessorKey: "transaction_id",
