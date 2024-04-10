@@ -11,7 +11,7 @@ const ProfileRegisterFormContactAddress = ({
     <>
       {/* contact no */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label>Contact no.</label>
+        <label>Contact no.*</label>
         <p className="italic text-red-600">
           Note: Please provide your phone number to receive updates.
         </p>
@@ -42,7 +42,7 @@ const ProfileRegisterFormContactAddress = ({
       </div>
       {/* number / street */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="street_no">Number/Street</label>
+        <label htmlFor="street_no">Number/Street*</label>
         <Input
           name="number_street"
           className="capitalize"

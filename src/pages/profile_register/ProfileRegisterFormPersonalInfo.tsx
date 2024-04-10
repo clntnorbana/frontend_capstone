@@ -21,7 +21,7 @@ const ProfileRegisterFormPersonalInfo = ({
     <>
       {/* firstname */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label>Firstname</label>
+        <label>Firstname*</label>
         <Input
           name="firstname"
           type="text"
@@ -33,7 +33,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* lastname */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label>Lastname</label>
+        <label>Lastname*</label>
         <Input
           name="lastname"
           type="text"
@@ -57,7 +57,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* sex */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label>Sex</label>
+        <label>Sex*</label>
         <Select
           name="sex"
           value={info.sex}
@@ -93,7 +93,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* birthplace */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="birthplace">Birthplace</label>
+        <label htmlFor="birthplace">Birthplace*</label>
         <Input
           name="place_of_birth"
           className="capitalize"
@@ -105,7 +105,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* citizenship */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="citizenship">Citizenship</label>
+        <label htmlFor="citizenship">Citizenship*</label>
         <Input
           name="citizenship"
           className="capitalize"
@@ -117,7 +117,7 @@ const ProfileRegisterFormPersonalInfo = ({
       </div>
       {/* civil status */}
       <div className="grid w-full items-center gap-1.5 mb-2">
-        <label htmlFor="civil_status">Civil Status</label>
+        <label htmlFor="civil_status">Civil Status*</label>
         <Select
           name="civil_status"
           value={info.civil_status}
