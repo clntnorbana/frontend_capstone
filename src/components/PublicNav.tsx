@@ -44,8 +44,8 @@ const PublicNav = () => {
               return (
                 <NavLink
                   className={({ isActive }) =>
-                    `py-2 px-4 hover:text-blue-300 uppercase text-gray-900 transition-all duration-200 font-medium ${
-                      isActive ? "bg-blue-300 hover:text-white" : ""
+                    `py-2 px-4 hover:text-blue-300 uppercase text-gray-900 font-bold transition-all duration-200 font-medium ${
+                      isActive ? "bg-blue-300 hover:text-gray-900" : ""
                     }`
                   }
                   key={index}
