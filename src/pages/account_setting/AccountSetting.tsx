@@ -12,6 +12,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import AccountSettingUpdatePassword from "./AccountSettingUpdatePassword";
 import AccountSettingDeleteAccount from "./AccountSettingDeleteAccount";
 import UnauthorizedModal from "@/components/UnauthorizedModal";
+import { useParams } from "react-router-dom";
 
 const Accountsetting = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -31,8 +32,10 @@ const Accountsetting = () => {
 
   const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
 
+  const { employee_id } = useParams();
+
   const { data: employeeData, isLoading: employeeDataLoading } =
-    useGetEmployeeQuery(employeeInfo.employee_id);
+    useGetEmployeeQuery(employee_id);
   const employee = employeeData ? employeeData[0] : undefined;
   const employeeName = `${employee?.firstname} ${employee?.lastname}`;
 
@@ -131,40 +134,44 @@ const Accountsetting = () => {
 
           <div className="max-w-[600px] mx-auto">
             {/* actions */}
-            <div className="flex space-x-4 mb-20 justify-center">
-              <button
-                className="flex items-center text-blue-500 text-sm hover:underline"
-                onClick={() => setEditMode((prev) => !prev)}
-              >
-                {editMode ? (
-                  "Cancel Edit"
-                ) : (
-                  <>
-                    Edit <Edit2 size={15} className="ml-1" />{" "}
-                  </>
-                )}
-              </button>
 
-              {!editMode ? (
-                <>
-                  <button
-                    className="flex items-center text-gray-600 text-sm hover:underline"
-                    onClick={() => setChangePassword(true)}
-                  >
-                    Change Password <KeyRound size={15} className="ml-1" />
-                  </button>
-
-                  {employee?.username === "admin" ? null : (
-                    <button
-                      className="flex items-center text-red-500 text-sm hover:underline"
-                      onClick={() => setDeleteAccount(true)}
-                    >
-                      Delete Account <Trash2 size={15} className="ml-1" />
-                    </button>
+            {employeeInfo.employee_id === employee_id ? (
+              <div className="flex space-x-4 mb-20 justify-center">
+                <button
+                  className="flex items-center text-blue-500 text-sm hover:underline"
+                  onClick={() => setEditMode((prev) => !prev)}
+                >
+                  {editMode ? (
+                    "Cancel Edit"
+                  ) : (
+                    <>
+                      Edit <Edit2 size={15} className="ml-1" />{" "}
+                    </>
                   )}
-                </>
-              ) : null}
-            </div>
+                </button>
+
+                {!editMode ? (
+                  <>
+                    <button
+                      className="flex items-center text-gray-600 text-sm hover:underline"
+                      onClick={() => setChangePassword(true)}
+                    >
+                      Change Password <KeyRound size={15} className="ml-1" />
+                    </button>
+
+                    {employee?.username === "admin" ? null : (
+                      <button
+                        className="flex items-center text-red-500 text-sm hover:underline"
+                        onClick={() => setDeleteAccount(true)}
+                      >
+                        Delete Account <Trash2 size={15} className="ml-1" />
+                      </button>
+                    )}
+                  </>
+                ) : null}
+              </div>
+            ) : null}
+
             <div className="flex flex-col justify-center items-center mb-4">
               {/* image */}
               <div className="w-[150px] h-[150px] rounded-full flex justify-center items-center bg-gray-300 overflow-hidden">

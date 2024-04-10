@@ -47,7 +47,10 @@ const App = () => {
             element={<CertificateInfo />}
           />
           <Route path="/records" element={<Records />} />
-          <Route path="/account/setting" element={<Accountsetting />} />
+          <Route
+            path="/account/setting/:employee_id"
+            element={<Accountsetting />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

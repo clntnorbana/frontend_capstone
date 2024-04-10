@@ -47,7 +47,10 @@ const AccountCard = ({ account }: AccountCardProps) => {
         account={account}
       />
 
-      <div className="bg-gray-50 shadow p-10 rounded-lg w-[300px] flex flex-col justify-center items-center text-gray-700 border-gray-200 hover:bg-gray-100 relative">
+      <NavLink
+        to={`/account/setting/${account.employee_id}`}
+        className="bg-gray-50 shadow p-10 rounded-lg w-[300px] flex flex-col justify-center items-center text-gray-700 border-gray-200 hover:bg-gray-100 relative"
+      >
         {employee?.admin_role === "editor" && employee.username === "admin" ? (
           <div className="absolute top-2 right-2">
             <DropdownMenu>
@@ -100,10 +103,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
 
         <div className="text-center">
           {employee?.username === account.username ? (
-            <NavLink
-              className="capitalize text-lg font-bold text-blue-500 hover:underline"
-              to={`/account/setting`}
-            >{`${account.firstname} ${account.lastname}`}</NavLink>
+            <p className="capitalize text-lg font-bold">{`${account.firstname} ${account.lastname}`}</p>
           ) : (
             <p className="capitalize text-lg font-bold">{`${account.firstname} ${account.lastname}`}</p>
           )}
@@ -120,7 +120,7 @@ const AccountCard = ({ account }: AccountCardProps) => {
             {account.username === "admin" ? "Root Admin" : "Editor"}
           </p>
         ) : null}
-      </div>
+      </NavLink>
     </>
   );
 };
