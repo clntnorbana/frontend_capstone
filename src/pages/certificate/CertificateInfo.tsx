@@ -10,11 +10,10 @@ import CertificateInfoImages from "./CertificateInfoImages";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCheck, Trash2, X } from "lucide-react";
+import { CheckCheck, X } from "lucide-react";
 import CertificatePrint from "./CertificatePrint";
 import CertificateRejectModal from "./CertificateRejectModal";
 import CertificateApproveModal from "./CertificateApproveModal";
-import CertificateDeleteModal from "./CertificateDeleteModal";
 
 const CertificateInfo = () => {
   const { transaction_id } = useParams();
@@ -24,7 +23,6 @@ const CertificateInfo = () => {
   const [updatePurposeError, setUpdatePurposeError] = useState<string>("");
   const [openRejectModal, setOpenRejectModal] = useState<boolean>(false);
   const [openApproveModal, setOpenApproveModal] = useState<boolean>(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
   // request data
   const { data: requestInfo, isLoading: requestLoading } =
@@ -73,12 +71,6 @@ const CertificateInfo = () => {
         transaction_id={request?.transaction_id}
         onOpen={openRejectModal}
         onClose={() => setOpenRejectModal(false)}
-      />
-
-      <CertificateDeleteModal
-        onOpen={openDeleteModal}
-        onClose={() => setOpenDeleteModal(false)}
-        transaction_id={transaction_id}
       />
 
       {requestLoading ? (
@@ -173,7 +165,7 @@ const CertificateInfo = () => {
                 </>
               ) : null}
 
-              {request?.status === "approved" ||
+              {/* {request?.status === "approved" ||
               request?.status === "rejected" ? (
                 <button
                   className="bg-gray-300 hover:bg-gray-400 text-red-500 font-bold py-2 px-4 rounded-r flex items-center space-x-1 text-sm"
@@ -182,7 +174,7 @@ const CertificateInfo = () => {
                   <Trash2 size={20} />
                   <span>Delete</span>
                 </button>
-              ) : null}
+              ) : null} */}
 
               {/* {request?.status === "rejected" ? (
                 <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r flex items-center space-x-1 text-sm">

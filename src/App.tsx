@@ -18,6 +18,7 @@ import Certificate from "./pages/certificate/Certificate";
 import CertificateInfo from "./pages/certificate/CertificateInfo";
 import Records from "./pages/record/Records";
 import Accountsetting from "./pages/account_setting/AccountSetting";
+import Archives from "./pages/archive/Archives";
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
             path="/account/setting/:employee_id"
             element={<Accountsetting />}
           />
+          <Route path="/archives" element={<Archives />} />
         </Route>
       </Routes>
     </BrowserRouter>

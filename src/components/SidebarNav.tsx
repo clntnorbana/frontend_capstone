@@ -6,6 +6,7 @@ import {
   Users,
   Book,
   CircleUserRound,
+  PackageOpen,
 } from "lucide-react";
 
 const SidebarNav = () => {
@@ -34,7 +35,12 @@ const SidebarNav = () => {
       <SidebarItem
         icon={<Book size={20} />}
         text={"Records"}
-        path={"records"}
+        path={"/records"}
+      />
+      <SidebarItem
+        icon={<PackageOpen size={20} />}
+        text="Archives"
+        path="/archives"
       />
     </Sidebar>
   );

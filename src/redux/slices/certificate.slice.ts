@@ -26,13 +26,13 @@ export const certificateApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Certificate"],
     }),
-    deleteRequest: builder.mutation({
-      query: (transaction_id) => ({
-        url: `${URL}/delete_request/${transaction_id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Certificate"],
-    }),
+    // deleteRequest: builder.mutation({
+    //   query: (transaction_id) => ({
+    //     url: `${URL}/delete_request/${transaction_id}`,
+    //     method: "DELETE",
+    //   }),
+    //   invalidatesTags: ["Certificate"],
+    // }),
     updatePurpose: builder.mutation({
       query: ({ data, transaction_id }) => ({
         url: `${URL}/update_purpose/${transaction_id}`,
@@ -66,7 +66,7 @@ export const {
   useGetRequestByIdQuery,
   useCreateRequestMutation,
   useGetRequestCertificatesQuery,
-  useDeleteRequestMutation,
+  // useDeleteRequestMutation,
   useUpdatePurposeMutation,
   useApproveRequestMutation,
   useRejectRequestMutation,

@@ -59,6 +59,20 @@ export type TRequestCertificate = {
   images?: string[];
 };
 
+export type TArchive = {
+  id?: string;
+  transaction_id?: string;
+  profile_id: string;
+  request_by?: string;
+  certificate_type?: "indigency" | "barangay clearance";
+  purpose: string;
+  contact_no?: string;
+  email?: string;
+  status?: "rejected" | "approved" | "pending";
+  request_date?: string;
+  archive_date?: string;
+};
+
 export type TRecord = {
   id: string;
   transaction_id: string;

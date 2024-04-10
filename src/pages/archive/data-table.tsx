@@ -35,9 +35,6 @@ import {
 // ui components
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAppSelector } from "@/redux/hooks";
-import { useGetEmployeeQuery } from "@/redux/slices/employee.slice";
-import CertificateArchiveModal from "./CertificateArchiveModal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,18 +70,11 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const [openArchiveModal, setOpenArchiveModal] =
-    React.useState<boolean>(false);
-
-  const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
-  const { data: employeeData } = useGetEmployeeQuery(employeeInfo.employee_id);
-  const employee = employeeData ? employeeData[0] : undefined;
-
   return (
     <div>
       <div className="flex items-center py-4 gap-5">
         <Input
-          placeholder="Filter request by resident name..."
+          placeholder="Filter by name..."
           value={
             (table.getColumn("request_by")?.getFilterValue() as string) ?? ""
           }
@@ -93,48 +83,32 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <div className="space-x-2 ml-auto">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                show/hide columns
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          {/* archive button */}
-          {employee?.admin_role === "editor" ? (
-            <Button onClick={() => setOpenArchiveModal(true)}>
-              Archive (Approved / Rejected)
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              show/hide columns
             </Button>
-          ) : null}
-
-          {/* archive modal */}
-          <CertificateArchiveModal
-            onOpen={openArchiveModal}
-            onClose={() => setOpenArchiveModal(false)}
-            employee_id={employee?.employee_id}
-          />
-        </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className="rounded-md border">
         <Table>
