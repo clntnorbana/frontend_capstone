@@ -66,7 +66,13 @@ const ProfileRegisterForm = ({
   // check inputs
   useEffect(() => {
     const requiredInputs: { [steps: number]: string[] } = {
-      1: ["firstname", "lastname", "date_of_birth", "citizenship"],
+      1: [
+        "firstname",
+        "lastname",
+        "date_of_birth",
+        "citizenship",
+        "place_of_birth",
+      ],
       2: ["contact_no", "number_street"],
       3: [],
       4: [],
