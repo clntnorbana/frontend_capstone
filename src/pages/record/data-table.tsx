@@ -36,12 +36,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import RecordsDeleteAllModal from "./RecordsDeleteAllModal";
-import { Download } from "lucide-react";
-import { formatDate } from "@/utils/format.date";
-import { CSVLink } from "react-csv";
 import { useGetAllRecordsQuery } from "@/redux/slices/record.slice";
 import { useGetEmployeeQuery } from "@/redux/slices/employee.slice";
 import { useAppSelector } from "@/redux/hooks";
+import RecordPrint from "./RecordPrint";
+import { useReactToPrint } from "react-to-print";
+import { Download } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -81,16 +81,16 @@ export function DataTable<TData, TValue>({
   const [openDeleteModal, setOpenDeleteModal] = React.useState<boolean>(false);
 
   const { data: recordsData } = useGetAllRecordsQuery();
-  // // csv download
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const csvData = recordsData?.map(({ id, committed_date, ...rest }) => ({
-    committed_date: formatDate(committed_date),
-    ...rest,
-  }));
 
   const employeeInfo = useAppSelector((state) => state.credentials.userInfo);
   const { data: employeeData } = useGetEmployeeQuery(employeeInfo.employee_id);
   const employee = employeeData ? employeeData[0] : undefined;
+
+  // print
+  const componentRef = React.useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <div>
@@ -134,17 +134,15 @@ export function DataTable<TData, TValue>({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* download csv button */}
-          <Button variant={"secondary"}>
-            <CSVLink
-              data={csvData || []}
-              filename="REQUEST_CERTIFICATE_RECORD"
-              target="_blank"
-            >
-              Download CSV
-            </CSVLink>
-            <Download size={15} className="ml-2" />
+          <Button
+            className="space-x-1"
+            variant={"secondary"}
+            onClick={handlePrint}
+          >
+            <span>Download PDF</span> <Download size={20} />
           </Button>
+          {/* to print */}
+          <RecordPrint ref={componentRef} data={recordsData} />
 
           {/* delete record button */}
           {employee?.admin_role === "editor" ? (
