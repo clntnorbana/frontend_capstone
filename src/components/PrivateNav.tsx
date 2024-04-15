@@ -27,7 +27,7 @@ const PrivateHeader = () => {
       </Modal>
       <div className="flex justify-end items-center space-x-2">
         <NavLink
-          to={`/account/setting/`}
+          to={`/account/setting/${userInfo.employee_id}`}
           className="font-semibold text-gray-500 hover:underline flex flex-col leading-3"
         >
           <span>{userInfo.username} </span>
