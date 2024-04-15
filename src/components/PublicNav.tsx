@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { useGetSettingQuery } from "@/redux/slices/employee.slice";
 
 const PublicNav = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // const contactAndSched = JSON.parse(
-  //   localStorage.getItem("contactSchedData") || ""
-  // );
+  const { data: contactAndSchedData, isLoading } = useGetSettingQuery();
+  const contactAndSched = contactAndSchedData
+    ? contactAndSchedData[0]
+    : undefined;
 
   // links
   const navLinks = [
@@ -29,10 +31,18 @@ const PublicNav = () => {
     <>
       <div className="flex justify-between bg-pink-500 px-5">
         <p className="text-gray-200">
-          Open hours{" "}
-          <span className="font-semibold">Mon - Fri 8:00 am - 6:00 pm</span>{" "}
+          {isLoading ? (
+            "loading..."
+          ) : (
+            <>
+              Open hours{" "}
+              <span className="font-semibold">{contactAndSched?.schedule}</span>{" "}
+            </>
+          )}
         </p>
-        <p className="text-gray-200 italic">847-777-955</p>
+        <p className="text-gray-200 italic">
+          {isLoading ? "loading..." : contactAndSched?.contact}
+        </p>
       </div>
       <nav className="lg:bg-pink-400 bg-white fixed sticky top-0 w-full h-[50px] z-50">
         <div className="container lg:px-52 mx-auto flex justify-end items-center relative h-full">

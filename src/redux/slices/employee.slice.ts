@@ -1,9 +1,10 @@
-import { TEmployee } from "@/types";
+import { TEmployee, TSetting } from "@/types";
 import { apiSlice } from "./api.slice";
 
 const URL = "api/employee";
 
 export type TypeEmployee = TEmployee[];
+export type TypeSetting = TSetting[];
 
 export const employeeApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -32,6 +33,11 @@ export const employeeApiSlice = apiSlice.injectEndpoints({
     getAllEmployees: builder.query<TypeEmployee, void>({
       query: () => `${URL}/get_employees`,
       providesTags: ["Employee"],
+    }),
+    // get setting
+    getSetting: builder.query<TypeSetting, void>({
+      query: () => `${URL}/get_setting`,
+      providesTags: ["Setting"],
     }),
     // create account
     createAccount: builder.mutation({
@@ -68,6 +74,15 @@ export const employeeApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Employee"],
     }),
+    // update setting
+    updateSetting: builder.mutation({
+      query: (data) => ({
+        url: `${URL}/update_setting`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Setting"],
+    }),
     // delete employee
     deleteEmployee: builder.mutation({
       query: (employee_id: string) => ({
@@ -103,9 +118,11 @@ export const {
   useUpdateEmployeeMutation,
   useUpdatePasswordMutation,
   useUpdateAdminRoleMutation,
+  useUpdateSettingMutation,
   useDeleteEmployeeMutation,
   useDeleteAccountMutation,
   useGetEmployeeQuery,
   useGetAllEmployeesQuery,
+  useGetSettingQuery,
   useChangeForgottenPasswordMutation,
 } = employeeApiSlice;

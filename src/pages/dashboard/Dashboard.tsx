@@ -1,4 +1,4 @@
-// import ContactAndSched from "./ContactAndSched";
+import ContactAndSched from "./ContactAndSched";
 import {
   RegisteredResidentCard,
   RequestCertificateCard,
@@ -7,7 +7,6 @@ import {
 const Dashboard = () => {
   return (
     <div className="container mx-auto">
-      {/* <ContactAndSched /> */}
       <h1 className="text-xl mb-5 font-bold text-gray-600">Dashboard</h1>
       <div
         style={{
@@ -16,6 +15,7 @@ const Dashboard = () => {
           gridGap: "20px",
         }}
       >
+        <ContactAndSched />
         <RegisteredResidentCard />
         <RequestCertificateCard />
       </div>

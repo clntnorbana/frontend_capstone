@@ -1,16 +1,21 @@
 import Loader from "@/components/Loader";
 import Modal from "@/components/Modal";
+import UnauthorizedModal from "@/components/UnauthorizedModal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  useGetSettingQuery,
+  useUpdateSettingMutation,
+} from "@/redux/slices/employee.slice";
+import { TSetting } from "@/types";
 import { Pencil } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ContactAndSched = () => {
   const [openForm, setOpenForm] = useState<boolean>(false);
 
-  const contactAndSched = JSON.parse(
-    localStorage.getItem("contactSchedData") || ""
-  );
+  const { data: settingData, isLoading } = useGetSettingQuery();
+  const setting = settingData ? settingData[0] : undefined;
 
   return (
     <>
@@ -18,22 +23,27 @@ const ContactAndSched = () => {
       <ContactandSchedForm
         onOpen={openForm}
         onClose={() => setOpenForm(false)}
+        settingData={setting}
       />
 
-      <div className="my-5 border max-w-sm p-5 rounded-md shadow">
+      <div className="border max-w-sm p-5 rounded-md shadow bg-gray-50 border-gray-200 rounded-lg hover:bg-gray-100">
         <div className="flex justify-between">
           <div>
             <h1 className="border-b mb-2 pb-2 font-bold px-1 text-gray-600">
-              Barangay Malamig Contact and Schedule
+              Contact and Schedule Setting
             </h1>
             <div>
               <p>
                 <span className="font-bold text-gray-600">Contact:</span>{" "}
-                <span className="italic">{contactAndSched.contact}</span>{" "}
+                <span className="italic">
+                  {isLoading ? "loading..." : setting?.contact}
+                </span>{" "}
               </p>
               <p>
-                <span className="font-bold text-gray-600">Open hours:</span>{" "}
-                <span className="italic">{contactAndSched.sched}</span>{" "}
+                <span className="font-bold text-gray-600">Schedule:</span>{" "}
+                <span className="italic">
+                  {isLoading ? "loading..." : setting?.schedule}
+                </span>{" "}
               </p>
             </div>
           </div>
@@ -48,95 +58,117 @@ const ContactAndSched = () => {
   );
 };
 
-type ContactandSchedFormProps = {
+type ContactAndSchedFormProps = {
   onOpen: boolean;
   onClose: () => void;
+  settingData: TSetting | undefined;
 };
 
 // edit contact and schedule
-const ContactandSchedForm = ({ onOpen, onClose }: ContactandSchedFormProps) => {
-  const [formData, setFormData] = useState<{ contact: string; sched: string }>(
-    () => {
-      const savedData = localStorage.getItem("contactSchedData");
-      return savedData ? JSON.parse(savedData) : { contact: "", sched: "" };
+const ContactandSchedForm = ({
+  onOpen,
+  onClose,
+  settingData,
+}: ContactAndSchedFormProps) => {
+  const [contact, setContact] = useState<string>("");
+  const [schedule, setSchedule] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+
+  useEffect(() => {
+    if (settingData) {
+      setContact(settingData.contact);
+      setSchedule(settingData.schedule);
     }
-  );
+  }, [settingData]);
 
-  const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  // update setting api call
+  const [updateSetting, { isLoading }] = useUpdateSettingMutation();
 
-  const handleInputChange =
-    (key: keyof typeof formData) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData((prevData) => ({ ...prevData, [key]: e.target.value }));
-    };
+  const handleUpdate = async () => {
+    // const data = {
+    //   contact,
+    //   schedule,
+    // };
 
-  const handleUpdate = () => {
-    if (!formData.contact || !formData.sched) {
-      setError(true);
-      return;
+    try {
+      const res = await updateSetting({ contact, schedule }).unwrap();
+      setSuccess(res.message);
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setError((error as any).data.message);
     }
-
-    setLoading(true);
-
-    setTimeout(() => {
-      localStorage.setItem("contactSchedData", JSON.stringify(formData));
-      setError(false);
-      setLoading(false);
-      onClose();
-    }, 2500);
   };
 
-  const handleCloseModal = () => {
-    onClose();
-    setError(false);
-  };
+  useEffect(() => {
+    if (error && error !== "unauthorized") {
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+    }
+
+    if (success) {
+      setTimeout(() => {
+        setSuccess("");
+        onClose();
+      }, 2000);
+    }
+  }, [error, success, onClose]);
 
   return (
     <Modal isOpen={onOpen}>
       {/* loading screen */}
-      <Loader
-        loading={loading}
-        message="Updating contact and schedule, please wait..."
-      />
+      <Loader loading={isLoading} message="Updating, please wait..." />
 
-      <div className="border-b pb-4 min-w-[400px]">
-        {error ? (
-          <p className="my-4 bg-red-400 p-2 text-gray-50 text-sm text-center">
-            Field is required
-          </p>
-        ) : null}
+      {/* Unauthorized modal */}
+      <UnauthorizedModal isOpen={error === "unauthorized"} />
 
-        <h1 className="font-bold border-b pb-4">Update contact and schedule</h1>
+      {success ? (
+        <p>{success}</p>
+      ) : (
+        <>
+          <div className="border-b pb-4 min-w-[400px]">
+            <h1 className="font-bold border-b pb-4">
+              Update contact and schedule
+            </h1>
 
-        <div className="mt-4">
-          <label className="font-bold text-gray-600 mb-1">Contact</label>
-          <Input
-            type="text"
-            placeholder="Enter contact #"
-            value={formData.contact}
-            onChange={handleInputChange("contact")}
-          />
-        </div>
+            {/* error message */}
+            {error ? (
+              <p className="p-2 bg-red-400 text-gray-50 text-center">{error}</p>
+            ) : null}
 
-        <div className="mt-4">
-          <label className="font-bold text-gray-600 mb-1">Schedule</label>
-          <Input
-            type="text"
-            placeholder="e.g. Mon - Fri 8:00 am - 6:00 pm"
-            value={formData.sched}
-            onChange={handleInputChange("sched")}
-          />
-        </div>
-      </div>
-      <div className="mt-4 flex space-x-1 justify-end">
-        <Button size={"sm"} variant={"outline"} onClick={handleCloseModal}>
-          Cancel
-        </Button>
-        <Button size={"sm"} onClick={handleUpdate}>
-          Update
-        </Button>
-      </div>
+            <div className="mt-4">
+              <label className="font-bold text-gray-600 mb-1">Contact</label>
+              <Input
+                type="text"
+                placeholder="Enter contact #"
+                name="contact"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="font-bold text-gray-600 mb-1">Schedule</label>
+              <Input
+                type="text"
+                placeholder="e.g. Mon - Fri 8:00 am - 6:00 pm"
+                name="sched"
+                value={schedule}
+                onChange={(e) => setSchedule(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="mt-4 flex space-x-1 justify-end">
+            <Button size={"sm"} variant={"outline"} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button size={"sm"} type="submit" onClick={handleUpdate}>
+              Update
+            </Button>
+          </div>
+        </>
+      )}
     </Modal>
   );
 };

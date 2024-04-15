@@ -90,3 +90,9 @@ export type TImages = {
   transaction_id: string;
   img_url: string;
 };
+
+export type TSetting = {
+  id: string;
+  contact: string;
+  schedule: string;
+};

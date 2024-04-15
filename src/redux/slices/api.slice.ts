@@ -8,7 +8,14 @@ const baseQuery = fetchBaseQuery({
 
 export const apiSlice = createApi({
   baseQuery,
-  tagTypes: ["Resident", "Certificate", "Employee", "Record", "Archive"],
+  tagTypes: [
+    "Resident",
+    "Certificate",
+    "Employee",
+    "Record",
+    "Archive",
+    "Setting",
+  ],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: (_builder) => ({}),
 });
